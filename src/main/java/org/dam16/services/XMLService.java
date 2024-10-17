@@ -1,23 +1,19 @@
 package org.dam16.services;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
 import javax.swing.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.Result;
-import javax.xml.transform.Source;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import java.io.File;
-
 public class XMLService {
     // Constantes para los nombres de nodos y atributos
-    public static final String PROJECT_NAME = "proyectoxml";
-    public static final String ROOT_NODE = "libros";
+    public static final String PROJECT_NAME = "bookook";
+    public static final String ROOT_NODE = "inventario";
     public static final String ARCHIVO_XML = "datos.xml";
 
 
@@ -165,6 +161,6 @@ public class XMLService {
 
     // Método que devuelve la ruta completa del archivo
     public static String getFilePath(String fileName) {
-        return System.getProperty("user.home") + "/" + PROJECT_NAME + "/" + fileName;
+        return "src/datos/"+fileName;
     }
 }
