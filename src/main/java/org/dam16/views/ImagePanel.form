@@ -2,8 +2,7 @@
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="org.dam16.views.ImagePanel">
   <grid id="27dc6" binding="mainPanel" layout-manager="FormLayout">
     <rowspec value="center:52px:noGrow"/>
-    <rowspec value="top:52px:noGrow"/>
-    <rowspec value="center:max(d;4px):noGrow"/>
+    <rowspec value="top:54px:noGrow"/>
     <colspec value="fill:d:noGrow"/>
     <colspec value="left:226px:noGrow"/>
     <colspec value="fill:225px:noGrow"/>
@@ -17,7 +16,7 @@
     </properties>
     <border type="none"/>
     <children>
-      <component id="aca65" class="javax.swing.JLabel" binding="tx_image">
+      <component id="aca65" class="javax.swing.JLabel" binding="lb_image">
         <constraints>
           <grid row="0" column="1" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
           <forms defaultalign-horz="false" defaultalign-vert="false"/>

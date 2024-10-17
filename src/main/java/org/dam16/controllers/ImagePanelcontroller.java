@@ -1,5 +1,6 @@
 package org.dam16.controllers;
 
+import org.dam16.utils.FileUtils;
 import org.dam16.views.ImagePanel;
 
 import java.awt.event.ActionEvent;
@@ -15,16 +16,35 @@ public class ImagePanelcontroller implements ActionListener {
         this.imagePanel = imagePanel;
         handlerSetDefaultImage();
     }
+    private void handlerSelectImage(){
+        String imagen = FileUtils.seleccionarRutaImagen();
+        if(imagen != null){
+            imagePanel.setBackgroundImage(imagen);
+            imagePanel.setSelectedImage(imagen);
+        }
+    }
     private void handlerSetDefaultImage(){
         try {
             String imagen = URLDecoder.decode(getClass().getResource("/default.jpg").getPath(),"UTF-8");
-
+            imagePanel.setSelectedImage(imagen);
+            imagePanel.setBackgroundImage(imagen);
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
     }
+    private void handlerDeleteImage(){
+        handlerSetDefaultImage();
+    }
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        String command = e.getActionCommand();
+        switch (command){
+            case DELETE_IMAGE:
+                handlerDeleteImage();
+                break;
+                case SELECT_IMAGE:
+                    handlerSelectImage();
+                    break;
+        }
     }
 }

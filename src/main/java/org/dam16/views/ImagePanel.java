@@ -9,12 +9,29 @@ import static org.dam16.controllers.ImagePanelcontroller.SELECT_IMAGE;
 
 public class ImagePanel extends JPanel {
     private JPanel mainPanel;
-    private JLabel tx_image;
+    private JLabel lb_image;
     private JButton bt_elegirImagen;
     private JButton bt_eliminarImagen;
     private Image image;
+    private String setSelectedImage;
     public ImagePanel() {
         add(mainPanel);
+        setCommands();
+        mainPanel.setOpaque(false);
+        setSelectedImage("src/images/default.jpg");
+    }
+    public String getSetSelectedImage() {
+        return setSelectedImage;
+    }
+    public void setSelectedImage(String setSelectedImage) {
+        this.setSelectedImage = setSelectedImage;
+    }
+
+
+    public void setBackgroundImage(String image){
+        ImageIcon icon = new ImageIcon(image);
+        Image imagenEscalada = icon.getImage().getScaledInstance(226, 105, Image.SCALE_SMOOTH);
+        lb_image.setIcon(new ImageIcon(imagenEscalada));
     }
     private void setCommands(){
         bt_elegirImagen.setActionCommand(SELECT_IMAGE);
