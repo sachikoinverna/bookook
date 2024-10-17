@@ -17,7 +17,7 @@ import java.io.File;
 public class XMLService {
     // Constantes para los nombres de nodos y atributos
     public static final String PROJECT_NAME = "proyectoxml";
-    public static final String ROOT_NODE = "project";
+    public static final String ROOT_NODE = "libros";
     public static final String ARCHIVO_XML = "datos.xml";
 
 

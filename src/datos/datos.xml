@@ -1,0 +1,11 @@
+<inventario>
+    <libros>
+
+    </libros>
+    <generos>
+        <genero id="1" nombre=""/>
+    </generos>
+    <autores>
+        <autor id="1" nombre="JK Rowling"/>
+    </autores>
+</inventario>

@@ -1,5 +1,6 @@
 package org.dam16;
 
+import org.dam16.controllers.MainFrameController;
 import org.dam16.views.MainFrame;
 
 /**
@@ -12,5 +13,8 @@ public class App
     {
 
         MainFrame frame = new MainFrame();
+        MainFrameController mainFrameControllerontroller = new MainFrameController(frame);
+        frame.addListener(mainFrameControllerontroller);
+        frame.showWindow();
     }
 }
