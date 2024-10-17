@@ -29,6 +29,15 @@ public class MainFrame extends JFrame implements InterfaceView{
         contenedorPaneles.add(crearProductoPanel,"crearProductoPanel");
         contenedorPaneles.add(verProductosPanel,"verProductoPanel");
     }
+    public InicioPanel getInicioPanel() {
+        return inicioPanel;
+    }
+    public CrearProductoPanel getCrearProductoPanel() {
+        return crearProductoPanel;
+    }
+    public VerProductosPanel getVerProductosPanel() {
+        return verProductosPanel;
+    }
     public void navigate(String panelName) {
         navegador.show(contenedorPaneles, panelName);
     }

@@ -35,7 +35,7 @@
           <text value="Elegir imagen"/>
         </properties>
       </component>
-      <component id="8d5c8" class="javax.swing.JButton" binding="eliminarImagenButton" default-binding="true">
+      <component id="8d5c8" class="javax.swing.JButton" binding="bt_eliminarImagen">
         <constraints>
           <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
           <forms defaultalign-horz="false" defaultalign-vert="false"/>
