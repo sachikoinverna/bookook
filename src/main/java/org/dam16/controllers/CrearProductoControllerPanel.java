@@ -12,8 +12,20 @@ public class CrearProductoControllerPanel implements ActionListener {
     public CrearProductoControllerPanel(CrearProductoPanel crearProductoPanel) {
         this.crearProductoPanel = crearProductoPanel;
     }
+    private void handlerCreateProduct() {
+
+    }
+    private void handlerEditProduct() {}
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        String action = e.getActionCommand();
+        switch (action) {
+            case CREATE_PRODUCT:
+                handlerCreateProduct();
+                break;
+                case EDIT_PRODUCT:
+                    handlerEditProduct();
+                    break;
+        }
     }
 }
