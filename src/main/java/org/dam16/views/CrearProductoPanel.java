@@ -169,22 +169,51 @@ public class CrearProductoPanel extends JPanel {
         tx_id.setText("");
     }
     private boolean checkFields(){
-        errorMessage="Faltan los siguientes datos: \n";
-        if(tx_id.getText().isEmpty()){
-            errorMessage+= "✯Id \n";
+        if(!checkFieldsEmpty() && !checkFieldsValueIncorrect()){
             return false;
         }
-        if (tx_titulo.getText().isEmpty()) {
-           errorMessage+= "✯Titulo \n";
-        }
-        if (tx_precio.getText().isEmpty()) {
-            errorMessage+= "✯Precio \n";
-        }else if (tx_numeroejemplares.getText().isEmpty()) {
-            errorMessage+="✯Numero de ejemplares \n";
-        } else if (getAutoresSelected().isEmpty()) {
-            errorMessage+="✯Autores seleccionados \n";
-        } else if (dp_fechapublicacion.getDate()!=null) {
-            errorMessage+="✯Fecha de publicacion \n";
+        return true;
+    }
+    private boolean checkFieldsValueIncorrect(){
+        if(tx_id.getText().equals("0") || tx_precio.getText().equals("0")){
+            if(!checkFieldsEmpty()) {
+                errorMessage += "\n Los siguientes datos no pueden ser cero: \n";
+            } else if (checkFieldsEmpty()) {
+                errorMessage="Los siguientes datos no pueden ser cero: \n";
+            }
+                if(tx_id.getText().equals("0")){
+                    errorMessage+="✯Id \n";
+                }
+                if(tx_precio.getText().equals("0")){
+                    errorMessage+="✯Precio \n";
+                }
+                return false;
+            }
+        return true;
+    }
+    private boolean checkFieldsEmpty(){
+
+        if(tx_id.getText().isEmpty() || tx_titulo.getText().isEmpty() || tx_precio.getText().isEmpty() || tx_numeroejemplares.getText().isEmpty() || getAutoresSelected().isEmpty() || dp_fechapublicacion.getDate()!=null) {
+            errorMessage="Faltan los siguientes datos: \n";
+            if (tx_id.getText().isEmpty()) {
+                errorMessage += "✯Id \n";
+            }
+            if (tx_titulo.getText().isEmpty()) {
+                errorMessage += "✯Titulo \n";
+            }
+            if (tx_precio.getText().isEmpty()) {
+                errorMessage += "✯Precio \n";
+            }
+            if (tx_numeroejemplares.getText().isEmpty()) {
+                errorMessage += "✯Numero de ejemplares \n";
+            }
+            if (getAutoresSelected().isEmpty()) {
+                errorMessage += "✯Autores seleccionados \n";
+            }
+            if (dp_fechapublicacion.getDate() != null) {
+                errorMessage += "✯Fecha de publicacion \n";
+            }
+            return false;
         }
         return true;
     }
@@ -204,7 +233,7 @@ public class CrearProductoPanel extends JPanel {
             JOptionPane.showMessageDialog(mainPanel,errorMessage,"Error",JOptionPane.ERROR_MESSAGE);
         }
         else if(checkFields()) {
-           // return new LibroModel(Integer.valueOf(tx_id.getText()), tx_titulo.getText(), new ArrayList<AutorModel>(getSelectedValues()), (GeneroModel) cb_generos.getSelectedItem(), Double.valueOf(tx_precio.getText()), Date.valueOf(dp_fechapublicacion.getDate()), Integer.valueOf(tx_numeroejemplares.getText()), ck_stock.isSelected());
+            return new LibroModel(Integer.valueOf(tx_id.getText()), tx_titulo.getText(), new ArrayList<AutorModel>(getSelectedValues()), (GeneroModel) cb_generos.getSelectedItem(), Double.valueOf(tx_precio.getText()), Date.valueOf(dp_fechapublicacion.getDate()), Integer.valueOf(tx_numeroejemplares.getText()), ck_stock.isSelected());
         }
         return null;
     }

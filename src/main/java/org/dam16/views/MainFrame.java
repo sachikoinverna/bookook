@@ -27,11 +27,11 @@ public class MainFrame extends JFrame implements InterfaceView{
         inicioPanel.setBackgroundImage("/backgroundpruebal.jpg");
         crearProductoPanel = new CrearProductoPanel();
         crearProductoPanel.setBackgroundImage("/backgroundprueba.jpg");
-        verProductosPanel = new VerProductosPanel();
-        //verProductosPanel.setBackgroundImage("/backgroundver.jpg");
+        verProductosPanel = new VerProductosPanel(this);
+        verProductosPanel.setBackgroundImage("/backgroundpruebas.jpg");
         contenedorPaneles.add(inicioPanel,"inicioPanel");
         contenedorPaneles.add(crearProductoPanel,"crearProductoPanel");
-        contenedorPaneles.add(verProductosPanel,"verProductoPanel");
+        contenedorPaneles.add(verProductosPanel,"verProductosPanel");
 
     }
     public InicioPanel getInicioPanel() {

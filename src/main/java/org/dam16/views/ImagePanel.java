@@ -26,8 +26,6 @@ public class ImagePanel extends JPanel {
     public void setSelectedImage(String setSelectedImage) {
         this.setSelectedImage = setSelectedImage;
     }
-
-
     public void setBackgroundImage(String image){
         ImageIcon icon = new ImageIcon(image);
         Image imagenEscalada = icon.getImage().getScaledInstance(209, 209, Image.SCALE_SMOOTH);

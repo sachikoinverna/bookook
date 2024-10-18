@@ -27,7 +27,16 @@ public class LibroModel {
         this.stock = stock;
         this.imagen = imagen;
     }
-
+    public LibroModel(int id, String titulo, ArrayList<AutorModel> autor, GeneroModel genero, Double precio, Date fecha_publicacion, int ejemplares, boolean stock) {
+        this.id = id;
+        this.titulo = titulo;
+        this.autor = autor;
+        this.genero = genero;
+        this.precio = precio;
+        this.fecha_publicacion = fecha_publicacion;
+        this.ejemplares = ejemplares;
+        this.stock = stock;
+    }
     public int getId() {
         return id;
     }

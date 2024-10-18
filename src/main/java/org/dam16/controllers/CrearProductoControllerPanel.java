@@ -2,12 +2,15 @@ package org.dam16.controllers;
 
 import org.dam16.models.AutorModel;
 import org.dam16.models.LibroModel;
+import org.dam16.utils.FileUtils;
 import org.dam16.views.CrearProductoPanel;
+import org.dam16.views.MainFrame;
 import org.dam16.xml.XMLManager;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 
 public class CrearProductoControllerPanel implements ActionListener {
@@ -18,23 +21,25 @@ public class CrearProductoControllerPanel implements ActionListener {
     public static final String DELETE_SELECTION = "DELETE_SELECTION";
     public static final String SELECT_ALL = "SELECT_ALL";
     private final CrearProductoPanel crearProductoPanel;
-    public CrearProductoControllerPanel(CrearProductoPanel crearProductoPanel) {
-        this.crearProductoPanel = crearProductoPanel;
+    private final MainFrame mainFrame;
+    public CrearProductoControllerPanel(MainFrame mainFrame) {
+        this.mainFrame = mainFrame;
+        this.crearProductoPanel = mainFrame.getCrearProductoPanel();
     }
     private void handlerCreateProduct() {
-        if(crearProductoPanel.getLibroModel()!=null) {
-            if(XMLManager.getLibroById(crearProductoPanel.getLibroModel().getId())==null){
+        if (crearProductoPanel.getLibroModel() != null) {
+            if (XMLManager.getLibroById(crearProductoPanel.getLibroModel().getId()) == null) {
+                if (!mainFrame.getCrearProductoPanel().getImagePreviewPanel().getSetSelectedImage().equals("src/images/default.jpg")) {
+                    FileUtils.guardarImagen(mainFrame.getCrearProductoPanel().getImagePreviewPanel().getSetSelectedImage());
+                }
+                LibroModel libro = crearProductoPanel.getLibroModel();
+                libro.setImagen(mainFrame.getCrearProductoPanel().getImagePreviewPanel().getSetSelectedImage());
+                boolean okCrear = XMLManager.createLibro(libro);
+                if (okCrear) {
+                    JOptionPane.showMessageDialog(null, "Felicidiades");
+                }
+            }
 
-            }
-            JOptionPane.showMessageDialog(null,"Felicidades");
-            LibroModel libroModel = crearProductoPanel.getLibroModel();
-            if(XMLManager.createLibro(libroModel)){
-                JOptionPane.showMessageDialog(null,"Felicidades");
-            } else {
-                JOptionPane.showMessageDialog(null,"stupid bitch");
-            }
-        } else if (crearProductoPanel.getLibroModel()==null) {
-            JOptionPane.showMessageDialog(null,"stupid dumn");
         }
     }
     private void handlerDeleteSelection(){

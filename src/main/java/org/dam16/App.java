@@ -19,7 +19,7 @@ public class  App
 
         MainFrame frame = new MainFrame();
         MainFrameController mainFrameControllerontroller = new MainFrameController(frame);
-        CrearProductoControllerPanel crearProductoControllerPanel = new CrearProductoControllerPanel(frame.getCrearProductoPanel());
+        CrearProductoControllerPanel crearProductoControllerPanel = new CrearProductoControllerPanel(frame);
         ImagePanelcontroller imagePanelcontroller = new ImagePanelcontroller(frame.getCrearProductoPanel().getImagePreviewPanel());
         VerProductoPanelController verProductoPanelController = new VerProductoPanelController(frame.getVerProductosPanel());
 

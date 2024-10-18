@@ -8,6 +8,7 @@ import org.dam16.services.XMLService;
 import org.w3c.dom.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import static org.dam16.services.XMLService.ROOT_NODE;
 public class XMLManager {
@@ -138,15 +139,24 @@ public class XMLManager {
             NodeList nodeList = document.getElementsByTagName("libros");
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Element element = (Element) nodeList.item(i);
-                if(Integer.valueOf(element.getAttribute("id"))==id) {
+                if(element.getAttribute("id").equals(String.valueOf(id))) {
                     ArrayList<AutorModel> autorModels = new ArrayList<>();
                     NodeList nodel = element.getChildNodes();
                     for (int j = 0; j < nodel.getLength(); j++) {
                         autorModels.add((AutorModel) nodel.item(j));
 
                     }
-                   // return new LibroModel() =
-                      //      new LibroModel(Integer.valueOf(element.getAttribute("id")),element.getAttribute("titulo"),element.getAttribute());
+                    NodeList nodeL = element.getElementsByTagName("generos");
+                    GeneroModel generoModel = new GeneroModel();
+                    for (int j = 0; j < nodeL.getLength(); j++) {
+                        Element autorElement = (Element) nodeL.item(j);
+                        if(autorElement.getAttribute("id").equals(element.getAttribute("genero"))){
+                            generoModel.setIdGenero(Integer.parseInt(autorElement.getAttribute("id")));
+                            generoModel.setGenero(autorElement.getAttribute("nombre"));
+                        }
+                    }
+               //    return new LibroModel() =
+               //           new LibroModel(Integer.valueOf(element.getAttribute("id")),element.getAttribute("titulo"),autorModels,generoModel,Double.valueOf(element.getAttribute("precio")), element.getAttribute("publicacion"),Integer.valueOf(element.getAttribute("ejemplares")),Boolean.valueOf(element.getAttribute("stock")),element.getAttribute("imagen"));
                 }
             }
         }
