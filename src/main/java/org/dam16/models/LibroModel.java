@@ -6,7 +6,7 @@ import java.util.Date;
 public class LibroModel {
     private int id;
     private String titulo;
-    private ArrayList<String> autor;
+    private ArrayList<Integer> autor;
     private String genero;
     private Double precio;
     private Date fecha_publicacion;
@@ -16,7 +16,7 @@ public class LibroModel {
     public LibroModel() {
     }
 
-    public LibroModel(int id, String titulo, ArrayList<String> autor, String genero, Double precio, Date fecha_publicacion, int ejemplares, boolean stock) {
+    public LibroModel(int id, String titulo, ArrayList<Integer> autor, String genero, Double precio, Date fecha_publicacion, int ejemplares, boolean stock) {
         this.id = id;
         this.titulo = titulo;
         this.autor = autor;
@@ -43,11 +43,11 @@ public class LibroModel {
         this.titulo = titulo;
     }
 
-    public ArrayList<String> getAutor() {
+    public ArrayList<Integer> getAutor() {
         return autor;
     }
 
-    public void setAutor(ArrayList<String> autor) {
+    public void setAutor(ArrayList<Integer> autor) {
         this.autor = autor;
     }
 

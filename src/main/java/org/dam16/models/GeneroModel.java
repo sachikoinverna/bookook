@@ -21,4 +21,7 @@ public class GeneroModel {
     public void setGenero(String genero) {
         this.genero = genero;
     }
+    public String toString() {
+        return genero;
+    }
 }

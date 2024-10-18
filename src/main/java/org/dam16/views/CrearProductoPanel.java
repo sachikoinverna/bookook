@@ -77,7 +77,7 @@ public class CrearProductoPanel extends JPanel {
     private void loadComboGeneros(ArrayList<GeneroModel> generos) {
         DefaultComboBoxModel modelo = new DefaultComboBoxModel();
         for (GeneroModel genero : generos) {
-            modelo.addElement(genero.getGenero());
+            modelo.addElement(genero.toString());
         }
         cb_generos.setModel(modelo);
 
@@ -85,7 +85,7 @@ public class CrearProductoPanel extends JPanel {
     private void loadJListaNotSelected(ArrayList<AutorModel> autorModels) {
         DefaultListModel modelo = new DefaultListModel();
         for (AutorModel autorModel : autorModels) {
-            modelo.addElement(autorModel.name);
+            modelo.addElement(autorModel.toString());
         }
         setAutoresNotSelectedModel(modelo);
     }
@@ -131,7 +131,16 @@ public class CrearProductoPanel extends JPanel {
         return jl_autoresnotselected;
     }
     public void cleanFields(){
-        jl_autoresnotselected.removeAll();
+        if(!getAutoresSelected().isEmpty()){
+            int length = getAutoresSelected().size();
+            String [] values = new String[length];
+            for(int i = 0; i < length; i++){
+                values[i] = getAutoresSelected().get(i).toString();
+                getAutoresNotselected().addElement(values[i]);
+            }
+            getAutoresSelected().removeAllElements();
+        }
+        tx_id.setText("");
     }
     private boolean checkFields(){
         errorMessage="Faltan los siguientes datos: \n";
@@ -151,12 +160,24 @@ public class CrearProductoPanel extends JPanel {
         }
         return true;
     }
+    private ArrayList<Integer> getSelectedValues(){
+        if(!getAutoresSelected().isEmpty()) {
+            ArrayList<Integer> valuesA = new ArrayList<>();
+            int length = getAutoresSelected().size();
+            AutorModel[] values = new AutorModel[length];
+            for (int i = 0; i < length; i++) {
+                values[i] = (AutorModel) getAutoresSelected().get(i);
+                valuesA.add(values[i].getId());
+            }
+        }
+        return null;
+    }
     /*public LibroModel getLibroModel() {
         if(!checkFields()){
             JOptionPane.showMessageDialog(mainPanel,errorMessage,"Error",JOptionPane.ERROR_MESSAGE);
         }
         else if(checkFields()) {
-            return new LibroModel(Integer.valueOf(tx_id.getText()), tx_titulo.getText(), jl_autoreselected.toString(), cb_generos.getSelectedItem().toString(), Double.valueOf(tx_precio.getText()), Date.valueOf(dp_fechapublicacion.getDate()), Integer.valueOf(tx_numeroejemplares.getText()), ck_stock.isSelected());
+            return new LibroModel(Integer.valueOf(tx_id.getText()), tx_titulo.getText(), new ArrayList<Integer>(getSelectedValues();), cb_generos.getSelectedItem().toString(), Double.valueOf(tx_precio.getText()), Date.valueOf(dp_fechapublicacion.getDate()), Integer.valueOf(tx_numeroejemplares.getText()), ck_stock.isSelected());
         }
         return null;
     }*/
