@@ -138,9 +138,10 @@ public class XMLService {
 
             // Crear el nodo principal del documento
             Element rootElement = newDocument.createElement(ROOT_NODE);
+            Element booksElement = newDocument.createElement("libros");
+            rootElement.appendChild(booksElement);
             // Añadir el nodo principal al documento
             newDocument.appendChild(rootElement);
-
             // Crear un Transformer para escribir el documento XML en el archivo
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             // Definir el archivo de salida donde se guardará el documento

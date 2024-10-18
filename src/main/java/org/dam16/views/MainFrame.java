@@ -19,6 +19,7 @@ public class MainFrame extends JFrame implements InterfaceView{
     public MainFrame() {
         initWindow();
         addPanels();
+
     }
     private void addPanels() {
         navegador = (CardLayout) contenedorPaneles.getLayout();
@@ -28,6 +29,7 @@ public class MainFrame extends JFrame implements InterfaceView{
         contenedorPaneles.add(inicioPanel,"inicioPanel");
         contenedorPaneles.add(crearProductoPanel,"crearProductoPanel");
         contenedorPaneles.add(verProductosPanel,"verProductoPanel");
+
     }
     public InicioPanel getInicioPanel() {
         return inicioPanel;

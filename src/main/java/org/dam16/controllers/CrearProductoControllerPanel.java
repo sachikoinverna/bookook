@@ -1,6 +1,9 @@
 package org.dam16.controllers;
 
+import org.dam16.models.AutorModel;
+import org.dam16.models.LibroModel;
 import org.dam16.views.CrearProductoPanel;
+import org.dam16.xml.XMLManager;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -19,7 +22,20 @@ public class CrearProductoControllerPanel implements ActionListener {
         this.crearProductoPanel = crearProductoPanel;
     }
     private void handlerCreateProduct() {
+        if(crearProductoPanel.getLibroModel()!=null) {
+            if(XMLManager.getLibroById(crearProductoPanel.getLibroModel().getId())==null){
 
+            }
+            JOptionPane.showMessageDialog(null,"Felicidades");
+            LibroModel libroModel = crearProductoPanel.getLibroModel();
+            if(XMLManager.createLibro(libroModel)){
+                JOptionPane.showMessageDialog(null,"Felicidades");
+            } else {
+                JOptionPane.showMessageDialog(null,"stupid bitch");
+            }
+        } else if (crearProductoPanel.getLibroModel()==null) {
+            JOptionPane.showMessageDialog(null,"stupid dumn");
+        }
     }
     private void handlerDeleteSelection(){
         if(!crearProductoPanel.getAutoresSelected().isEmpty()){
@@ -49,22 +65,24 @@ public class CrearProductoControllerPanel implements ActionListener {
     private void handlerChangeToJLNOTSELECTED() {
         if(!crearProductoPanel.getJlAutoreselected().isSelectionEmpty()){
             int length = crearProductoPanel.getJlAutoreselected().getSelectedIndices().length;
-            String[] selectedValues = new String[length];
-            for (int i = 0; i < selectedValues.length; i++) {
-                selectedValues[i] = crearProductoPanel.getJlAutoreselected().getSelectedValue().toString();
-                crearProductoPanel.getAutoresNotselected().addElement(selectedValues[i]);
-                crearProductoPanel.getAutoresSelected().removeElement(selectedValues[i]);
+            int[] indexValues = new int[length];
+            for (int i = 0; i < indexValues.length; i++) {
+                indexValues[i] = crearProductoPanel.getJlAutoreselected().getSelectedIndex();
+                AutorModel autorModel = (AutorModel) crearProductoPanel.getAutoresSelected().getElementAt(indexValues[i]);
+                crearProductoPanel.getAutoresNotselected().addElement(autorModel);
+                crearProductoPanel.getAutoresSelected().removeElement(autorModel);
             }
         }
     }
     private void handlerChangeToJLSELECTED() {
         if(!crearProductoPanel.getJl_autoresnotselected().isSelectionEmpty()){
             int length = crearProductoPanel.getJl_autoresnotselected().getSelectedIndices().length;
-            String[] selectedValues = new String[length];
-            for (int i = 0; i < selectedValues.length; i++) {
-                selectedValues[i] = crearProductoPanel.getJl_autoresnotselected().getSelectedValue().toString();
-                crearProductoPanel.getAutoresSelected().addElement(selectedValues[i]);
-                crearProductoPanel.getAutoresNotselected().removeElement(selectedValues[i]);
+            int[] indexValues = new int[length];
+            for (int i = 0; i < indexValues.length; i++) {
+                indexValues[i] = crearProductoPanel.getJl_autoresnotselected().getSelectedIndex();
+                AutorModel autorModel = (AutorModel) crearProductoPanel.getAutoresNotselected().getElementAt(indexValues[i]);
+                crearProductoPanel.getAutoresSelected().addElement(autorModel);
+                crearProductoPanel.getAutoresNotselected().removeElement(autorModel);
             }
         }
     }

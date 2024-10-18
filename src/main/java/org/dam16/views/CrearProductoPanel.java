@@ -32,6 +32,7 @@ public class CrearProductoPanel extends JPanel {
     private JButton bt_autoreselected;
     private JButton bt_eliminarseleccion;
     private JButton bt_seleccionartodos;
+    private JButton bt_crearEditar;
     private String errorMessage;
 
     public CrearProductoPanel() {
@@ -51,14 +52,21 @@ public class CrearProductoPanel extends JPanel {
         tx_numeroejemplares.addKeyListener(new KeyAdapter() {
            public void keyReleased(KeyEvent e) {
                if(Character.isLetter(e.getKeyChar()) || Character.isSpaceChar(e.getKeyChar())){
-                   tx_numeroejemplares.setText(tx_id.getText().substring(0,tx_id.getText().length()-1));
+                   tx_numeroejemplares.setText(tx_numeroejemplares.getText().substring(0,tx_numeroejemplares.getText().length()-1));
                }
            }
         });
         tx_precio.addKeyListener(new KeyAdapter() {
             public void keyReleased(KeyEvent e) {
                 if(Character.isLetter(e.getKeyChar()) || Character.isSpaceChar(e.getKeyChar())){
-                    tx_precio.setText(tx_id.getText().substring(0,tx_id.getText().length()-1));
+                    tx_precio.setText(tx_precio.getText().substring(0,tx_precio.getText().length()-1));
+                }
+            }
+        });
+        dp_fechapublicacion.addKeyListener(new KeyAdapter() {
+            public void keyReleased(KeyEvent e) {
+                if(Character.isLetter(e.getKeyChar()) || Character.isSpaceChar(e.getKeyChar())){
+                    dp_fechapublicacion.setText(dp_fechapublicacion.getText().substring(0,dp_fechapublicacion.getText().length()-1));
                 }
             }
         });
@@ -77,7 +85,7 @@ public class CrearProductoPanel extends JPanel {
     private void loadComboGeneros(ArrayList<GeneroModel> generos) {
         DefaultComboBoxModel modelo = new DefaultComboBoxModel();
         for (GeneroModel genero : generos) {
-            modelo.addElement(genero.toString());
+            modelo.addElement(genero);
         }
         cb_generos.setModel(modelo);
 
@@ -85,7 +93,7 @@ public class CrearProductoPanel extends JPanel {
     private void loadJListaNotSelected(ArrayList<AutorModel> autorModels) {
         DefaultListModel modelo = new DefaultListModel();
         for (AutorModel autorModel : autorModels) {
-            modelo.addElement(autorModel.toString());
+            modelo.addElement(autorModel);
         }
         setAutoresNotSelectedModel(modelo);
     }
@@ -105,12 +113,15 @@ public class CrearProductoPanel extends JPanel {
         bt_autoresnotselected.setActionCommand(CHANGE_TO_JLNOTSELECTED);
         bt_eliminarseleccion.setActionCommand(DELETE_SELECTION);
         bt_seleccionartodos.setActionCommand(SELECT_ALL);
+        bt_crearEditar.setActionCommand(CREATE_PRODUCT);
     }
+
     public void addListener(ActionListener listener){
         bt_autoresnotselected.addActionListener(listener);
         bt_autoreselected.addActionListener(listener);
         bt_eliminarseleccion.addActionListener(listener);
         bt_seleccionartodos.addActionListener(listener);
+        bt_crearEditar.addActionListener(listener);
     }
     public void setAutoresNotSelectedModel(DefaultListModel modelo){
         jl_autoresnotselected.setModel(modelo);
@@ -147,9 +158,11 @@ public class CrearProductoPanel extends JPanel {
         if(tx_id.getText().isEmpty()){
             errorMessage+= "✯Id \n";
             return false;
-        } else if (tx_titulo.getText().isEmpty()) {
+        }
+        if (tx_titulo.getText().isEmpty()) {
            errorMessage+= "✯Titulo \n";
-        } else if (tx_precio.getText().isEmpty()) {
+        }
+        if (tx_precio.getText().isEmpty()) {
             errorMessage+= "✯Precio \n";
         }else if (tx_numeroejemplares.getText().isEmpty()) {
             errorMessage+="✯Numero de ejemplares \n";
@@ -160,25 +173,24 @@ public class CrearProductoPanel extends JPanel {
         }
         return true;
     }
-    private ArrayList<Integer> getSelectedValues(){
+    private ArrayList<AutorModel> getSelectedValues(){
         if(!getAutoresSelected().isEmpty()) {
-            ArrayList<Integer> valuesA = new ArrayList<>();
+            ArrayList<AutorModel> valuesA = new ArrayList<>();
             int length = getAutoresSelected().size();
-            AutorModel[] values = new AutorModel[length];
             for (int i = 0; i < length; i++) {
-                values[i] = (AutorModel) getAutoresSelected().get(i);
-                valuesA.add(values[i].getId());
+                valuesA.add((AutorModel) getAutoresSelected().getElementAt(i));
             }
+            return valuesA;
         }
         return null;
     }
-    /*public LibroModel getLibroModel() {
+    public LibroModel getLibroModel() {
         if(!checkFields()){
             JOptionPane.showMessageDialog(mainPanel,errorMessage,"Error",JOptionPane.ERROR_MESSAGE);
         }
         else if(checkFields()) {
-            return new LibroModel(Integer.valueOf(tx_id.getText()), tx_titulo.getText(), new ArrayList<Integer>(getSelectedValues();), cb_generos.getSelectedItem().toString(), Double.valueOf(tx_precio.getText()), Date.valueOf(dp_fechapublicacion.getDate()), Integer.valueOf(tx_numeroejemplares.getText()), ck_stock.isSelected());
+            return new LibroModel(Integer.valueOf(tx_id.getText()), tx_titulo.getText(), new ArrayList<AutorModel>(getSelectedValues()), (GeneroModel) cb_generos.getSelectedItem(), Double.valueOf(tx_precio.getText()), Date.valueOf(dp_fechapublicacion.getDate()), Integer.valueOf(tx_numeroejemplares.getText()), ck_stock.isSelected());
         }
         return null;
-    }*/
+    }
 }

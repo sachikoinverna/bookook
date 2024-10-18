@@ -1,7 +1,6 @@
-<inventario>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><inventario>
     <libros>
-
-    </libros>
+    <libro ejemplares="4324" genero="1" id="324" publicacion="2024-10-26" titulo="fasf"><autores><autor id="1"/><autor id="2"/></autores></libro></libros>
     <generos>
         <genero id="1" nombre="Novela"/>
         <genero id="2" nombre="Cuento"/>
