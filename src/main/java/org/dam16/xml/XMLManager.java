@@ -25,6 +25,7 @@ public class XMLManager {
                     }
                 }
             }
+            //Comprobar que el mismo libro del autor con el mismo titulo no exista
             NodeList nListAutores = document.getElementsByTagName("autor");
             if (nListAutores.getLength() > 0) {
                 for (int i = 0; i < nListAutores.getLength(); i++) {

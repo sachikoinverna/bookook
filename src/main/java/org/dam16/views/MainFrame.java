@@ -24,8 +24,11 @@ public class MainFrame extends JFrame implements InterfaceView{
     private void addPanels() {
         navegador = (CardLayout) contenedorPaneles.getLayout();
         inicioPanel = new InicioPanel();
+        inicioPanel.setBackgroundImage("/backgroundpruebal.jpg");
         crearProductoPanel = new CrearProductoPanel();
+        crearProductoPanel.setBackgroundImage("/backgroundprueba.jpg");
         verProductosPanel = new VerProductosPanel();
+        //verProductosPanel.setBackgroundImage("/backgroundver.jpg");
         contenedorPaneles.add(inicioPanel,"inicioPanel");
         contenedorPaneles.add(crearProductoPanel,"crearProductoPanel");
         contenedorPaneles.add(verProductosPanel,"verProductoPanel");

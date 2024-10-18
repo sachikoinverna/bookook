@@ -39,12 +39,13 @@ public class CrearProductoControllerPanel implements ActionListener {
     }
     private void handlerDeleteSelection(){
         if(!crearProductoPanel.getAutoresSelected().isEmpty()){
-
             int length = crearProductoPanel.getAutoresSelected().size();
-            String [] values = new String[length];
+            ArrayList<AutorModel> autorModels = new ArrayList<>();
             for(int i = 0; i < length; i++){
-                values[i] = crearProductoPanel.getAutoresSelected().get(i).toString();
-                crearProductoPanel.getAutoresNotselected().addElement(values[i]);
+                autorModels.add((AutorModel) crearProductoPanel.getAutoresSelected().getElementAt(i));
+            }
+            for(AutorModel autorModel : autorModels){
+                crearProductoPanel.getAutoresNotselected().addElement(autorModel);
             }
             crearProductoPanel.getAutoresSelected().removeAllElements();
         }
@@ -52,13 +53,13 @@ public class CrearProductoControllerPanel implements ActionListener {
     private void handlerAddAll(){
         if(!crearProductoPanel.getAutoresNotselected().isEmpty()){
             int length = crearProductoPanel.getAutoresNotselected().size();
-            String [] values = new String[length];
+            ArrayList<AutorModel> autorModels = new ArrayList<>();
             for(int i = 0; i < length; i++){
-                values[i] = crearProductoPanel.getAutoresNotselected().get(i).toString();
+                autorModels.add((AutorModel) crearProductoPanel.getAutoresNotselected().getElementAt(i));
             }
-            for(int i = 0; i < length; i++){
-                crearProductoPanel.getAutoresSelected().addElement(values[i]);
-                crearProductoPanel.getAutoresNotselected().removeElement(values[i]);
+            for(AutorModel autorModel : autorModels){
+                crearProductoPanel.getAutoresSelected().addElement(autorModel);
+                crearProductoPanel.getAutoresNotselected().removeElement(autorModel);
             }
         }
     }

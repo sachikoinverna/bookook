@@ -30,7 +30,7 @@ public class ImagePanel extends JPanel {
 
     public void setBackgroundImage(String image){
         ImageIcon icon = new ImageIcon(image);
-        Image imagenEscalada = icon.getImage().getScaledInstance(226, 105, Image.SCALE_SMOOTH);
+        Image imagenEscalada = icon.getImage().getScaledInstance(209, 209, Image.SCALE_SMOOTH);
         lb_image.setIcon(new ImageIcon(imagenEscalada));
     }
     private void setCommands(){

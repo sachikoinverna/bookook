@@ -7,6 +7,7 @@ import org.dam16.models.LibroModel;
 import org.dam16.xml.XMLManager;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -34,6 +35,7 @@ public class CrearProductoPanel extends JPanel {
     private JButton bt_seleccionartodos;
     private JButton bt_crearEditar;
     private String errorMessage;
+    private Image backgroundImage;
 
     public CrearProductoPanel() {
         add(mainPanel);
@@ -82,6 +84,17 @@ public class CrearProductoPanel extends JPanel {
         }
         loadJListaSelected(new ArrayList<>());
     }
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if(backgroundImage != null) {
+            g.drawImage(backgroundImage, 0, 0,getWidth(),getHeight(), this);
+        }
+    }
+    public void setBackgroundImage(String path) {
+        backgroundImage = new ImageIcon(getClass().getResource(path)).getImage();
+        repaint();
+    }
     private void loadComboGeneros(ArrayList<GeneroModel> generos) {
         DefaultComboBoxModel modelo = new DefaultComboBoxModel();
         for (GeneroModel genero : generos) {
@@ -104,6 +117,8 @@ public class CrearProductoPanel extends JPanel {
     private void setImagePreviewPanel(){
         imagePanel = new ImagePanel();
         imagePreviewPanel.add(imagePanel);
+        imagePanel.setOpaque(false);
+        imagePreviewPanel.setOpaque(false);
     }
     public ImagePanel getImagePreviewPanel(){
         return imagePanel;

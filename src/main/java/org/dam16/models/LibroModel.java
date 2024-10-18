@@ -12,11 +12,11 @@ public class LibroModel {
     private Date fecha_publicacion;
     private int ejemplares;
     private boolean stock;
-
+    private String imagen;
     public LibroModel() {
     }
 
-    public LibroModel(int id, String titulo, ArrayList<AutorModel> autor, GeneroModel genero, Double precio, Date fecha_publicacion, int ejemplares, boolean stock) {
+    public LibroModel(int id, String titulo, ArrayList<AutorModel> autor, GeneroModel genero, Double precio, Date fecha_publicacion, int ejemplares, boolean stock, String imagen) {
         this.id = id;
         this.titulo = titulo;
         this.autor = autor;
@@ -25,6 +25,7 @@ public class LibroModel {
         this.fecha_publicacion = fecha_publicacion;
         this.ejemplares = ejemplares;
         this.stock = stock;
+        this.imagen = imagen;
     }
 
     public int getId() {
@@ -89,5 +90,11 @@ public class LibroModel {
 
     public void setStock(boolean stock) {
         this.stock = stock;
+    }
+    public String getImagen() {
+        return imagen;
+    }
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
 }
