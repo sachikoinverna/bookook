@@ -12,7 +12,7 @@ import org.dam16.views.VerProductosPanel;
  * Hello world!
  *
  */
-public class App 
+public class  App
 {
     public static void main( String[] args )
     {

@@ -1,11 +1,12 @@
 package org.dam16.models;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class LibroModel {
     private int id;
     private String titulo;
-    private String autor;
+    private ArrayList<String> autor;
     private String genero;
     private Double precio;
     private Date fecha_publicacion;
@@ -15,7 +16,7 @@ public class LibroModel {
     public LibroModel() {
     }
 
-    public LibroModel(int id, String titulo, String autor, String genero, Double precio, Date fecha_publicacion, int ejemplares, boolean stock) {
+    public LibroModel(int id, String titulo, ArrayList<String> autor, String genero, Double precio, Date fecha_publicacion, int ejemplares, boolean stock) {
         this.id = id;
         this.titulo = titulo;
         this.autor = autor;
@@ -42,11 +43,11 @@ public class LibroModel {
         this.titulo = titulo;
     }
 
-    public String getAutor() {
+    public ArrayList<String> getAutor() {
         return autor;
     }
 
-    public void setAutor(String autor) {
+    public void setAutor(ArrayList<String> autor) {
         this.autor = autor;
     }
 

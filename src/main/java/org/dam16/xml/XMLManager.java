@@ -37,7 +37,7 @@ public class XMLManager {
         Document document = XMLService.loadOrCreateXML();
         if(document != null) {
             try {
-                NodeList nodeList = document.getElementsByTagName("genero");
+                NodeList nodeList = document.getElementsByTagName("autor");
                 if(nodeList.getLength()>0){
                     for (int i = 0; i < nodeList.getLength(); i++) {
                         Element element = (Element) nodeList.item(i);

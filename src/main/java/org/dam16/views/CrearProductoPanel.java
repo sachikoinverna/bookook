@@ -13,7 +13,7 @@ import java.awt.event.KeyEvent;
 import java.sql.Date;
 import java.util.ArrayList;
 
-import static org.dam16.controllers.CrearProductoControllerPanel.CHANGE_TO_JLNOTSELECTED;
+import static org.dam16.controllers.CrearProductoControllerPanel.*;
 
 public class CrearProductoPanel extends JPanel {
     private JPanel mainPanel;
@@ -30,8 +30,9 @@ public class CrearProductoPanel extends JPanel {
     private JList jl_autoreselected;
     private JButton bt_autoresnotselected;
     private JButton bt_autoreselected;
-    public JList l_autoreselected;
-    public JList l_autoresnotselected;
+    private JButton bt_eliminarseleccion;
+    private JButton bt_seleccionartodos;
+    private String errorMessage;
 
     public CrearProductoPanel() {
         add(mainPanel);
@@ -71,6 +72,7 @@ public class CrearProductoPanel extends JPanel {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        loadJListaSelected(new ArrayList<>());
     }
     private void loadComboGeneros(ArrayList<GeneroModel> generos) {
         DefaultComboBoxModel modelo = new DefaultComboBoxModel();
@@ -85,13 +87,11 @@ public class CrearProductoPanel extends JPanel {
         for (AutorModel autorModel : autorModels) {
             modelo.addElement(autorModel.name);
         }
-        jl_autoresnotselected.setModel(modelo);
-        l_autoresnotselected = new JList(modelo);
+        setAutoresNotSelectedModel(modelo);
     }
     private void loadJListaSelected(ArrayList<AutorModel> autorModels) {
         DefaultListModel modelo = new DefaultListModel();
-        jl_autoreselected.setModel(modelo);
-        l_autoresnotselected = new JList(modelo);
+        setAutoresSelectedModel(modelo);
     }
     private void setImagePreviewPanel(){
         imagePanel = new ImagePanel();
@@ -101,15 +101,31 @@ public class CrearProductoPanel extends JPanel {
         return imagePanel;
     }
     private void setCommands(){
-        bt_autoreselected.setActionCommand(CHANGE_TO_JLNOTSELECTED);
+        bt_autoreselected.setActionCommand(CHANGE_TO_JLSELECTED);
         bt_autoresnotselected.setActionCommand(CHANGE_TO_JLNOTSELECTED);
+        bt_eliminarseleccion.setActionCommand(DELETE_SELECTION);
+        bt_seleccionartodos.setActionCommand(SELECT_ALL);
     }
     public void addListener(ActionListener listener){
         bt_autoresnotselected.addActionListener(listener);
         bt_autoreselected.addActionListener(listener);
+        bt_eliminarseleccion.addActionListener(listener);
+        bt_seleccionartodos.addActionListener(listener);
+    }
+    public void setAutoresNotSelectedModel(DefaultListModel modelo){
+        jl_autoresnotselected.setModel(modelo);
+    }
+    public DefaultListModel getAutoresNotselected(){
+        return (DefaultListModel) jl_autoresnotselected.getModel();
+    }
+    public void setAutoresSelectedModel(DefaultListModel modelo){
+        jl_autoreselected.setModel(modelo);
+    }
+    public DefaultListModel getAutoresSelected(){
+        return (DefaultListModel) jl_autoreselected.getModel();
     }
     public JList getJlAutoreselected() {
-        return jl_autoresnotselected;
+        return jl_autoreselected;
     }
     public JList getJl_autoresnotselected() {
         return jl_autoresnotselected;
@@ -117,7 +133,31 @@ public class CrearProductoPanel extends JPanel {
     public void cleanFields(){
         jl_autoresnotselected.removeAll();
     }
-    public LibroModel getLibroModel() {
-       return new LibroModel(Integer.valueOf(tx_id.getText()),tx_titulo.getText(),jl_autoreselected.toString(),cb_generos.getSelectedItem().toString(),Double.valueOf(tx_precio.getText()), Date.valueOf(dp_fechapublicacion.getDate()),Integer.valueOf(tx_numeroejemplares.getText()),ck_stock.isSelected());
+    private boolean checkFields(){
+        errorMessage="Faltan los siguientes datos: \n";
+        if(tx_id.getText().isEmpty()){
+            errorMessage+= "✯Id \n";
+            return false;
+        } else if (tx_titulo.getText().isEmpty()) {
+           errorMessage+= "✯Titulo \n";
+        } else if (tx_precio.getText().isEmpty()) {
+            errorMessage+= "✯Precio \n";
+        }else if (tx_numeroejemplares.getText().isEmpty()) {
+            errorMessage+="✯Numero de ejemplares \n";
+        } else if (getAutoresSelected().isEmpty()) {
+            errorMessage+="✯Autores seleccionados \n";
+        } else if (dp_fechapublicacion.getDate()!=null) {
+            errorMessage+="✯Fecha de publicacion \n";
+        }
+        return true;
     }
+    /*public LibroModel getLibroModel() {
+        if(!checkFields()){
+            JOptionPane.showMessageDialog(mainPanel,errorMessage,"Error",JOptionPane.ERROR_MESSAGE);
+        }
+        else if(checkFields()) {
+            return new LibroModel(Integer.valueOf(tx_id.getText()), tx_titulo.getText(), jl_autoreselected.toString(), cb_generos.getSelectedItem().toString(), Double.valueOf(tx_precio.getText()), Date.valueOf(dp_fechapublicacion.getDate()), Integer.valueOf(tx_numeroejemplares.getText()), ck_stock.isSelected());
+        }
+        return null;
+    }*/
 }
