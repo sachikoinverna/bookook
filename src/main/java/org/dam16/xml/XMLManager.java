@@ -144,8 +144,8 @@ public class XMLManager {
                         autorModels.add((AutorModel) nodel.item(j));
 
                     }
-                    return new LibroModel() =
-                            new LibroModel(Integer.valueOf(element.getAttribute("id")),element.getAttribute("titulo"),element.getAttribute());
+                   // return new LibroModel() =
+                      //      new LibroModel(Integer.valueOf(element.getAttribute("id")),element.getAttribute("titulo"),element.getAttribute());
                 }
             }
         }
