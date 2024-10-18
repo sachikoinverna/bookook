@@ -204,7 +204,7 @@ public class CrearProductoPanel extends JPanel {
             JOptionPane.showMessageDialog(mainPanel,errorMessage,"Error",JOptionPane.ERROR_MESSAGE);
         }
         else if(checkFields()) {
-            return new LibroModel(Integer.valueOf(tx_id.getText()), tx_titulo.getText(), new ArrayList<AutorModel>(getSelectedValues()), (GeneroModel) cb_generos.getSelectedItem(), Double.valueOf(tx_precio.getText()), Date.valueOf(dp_fechapublicacion.getDate()), Integer.valueOf(tx_numeroejemplares.getText()), ck_stock.isSelected());
+           // return new LibroModel(Integer.valueOf(tx_id.getText()), tx_titulo.getText(), new ArrayList<AutorModel>(getSelectedValues()), (GeneroModel) cb_generos.getSelectedItem(), Double.valueOf(tx_precio.getText()), Date.valueOf(dp_fechapublicacion.getDate()), Integer.valueOf(tx_numeroejemplares.getText()), ck_stock.isSelected());
         }
         return null;
     }
