@@ -1,8 +1,6 @@
 package org.dam16.views;
 
 import org.dam16.models.LibroModel;
-import sun.java2d.Disposer;
-
 import javax.swing.*;
 import java.awt.event.*;
 
