@@ -12,11 +12,12 @@ public class EditarProductoDialog extends JDialog {
     private LibroModel libroModel;
     private MainFrame mainFrame;
     public EditarProductoDialog(MainFrame mainFrame,LibroModel libroModel) {
-        setContentPane(contentPane);
+        setContentPane(mainPanel);
+        setCrearProductoPanel(mainFrame.getCrearProductoPanel());
+        mainPanel.add(crearProductoPanel);
         setModal(true);
         pack();
         getRootPane().setDefaultButton(buttonCancel);
-        setCrearProductoPanel(mainFrame.getCrearProductoPanel());
         this.libroModel = libroModel;
         crearProductoPanel.setEditMode();
         crearProductoPanel.setLibroModel(libroModel);
