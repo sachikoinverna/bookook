@@ -5,24 +5,17 @@ import java.awt.event.*;
 
 public class EditarProductoDialog extends JDialog {
     private JPanel contentPane;
-    private JButton buttonOK;
     private JButton buttonCancel;
     private JPanel mainPanel;
     private CrearProductoPanel crearProductoPanel;
-    public EditarProductoDialog() {
+    public EditarProductoDialog(MainFrame mainFrame) {
         setContentPane(contentPane);
         setModal(true);
-        getRootPane().setDefaultButton(buttonOK);
-        setCrearProductoPanel(new CrearProductoPanel());
+        pack();
+        getRootPane().setDefaultButton(buttonCancel);
+        setCrearProductoPanel(mainFrame.getCrearProductoPanel());
+        //mainFrame.getCrearProductoPanel().s
         mainPanel.add(crearProductoPanel);
-
-
-        buttonOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onOK();
-            }
-        });
-
         buttonCancel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onCancel();
@@ -47,20 +40,15 @@ public class EditarProductoDialog extends JDialog {
     private void setCrearProductoPanel(CrearProductoPanel crearProductoPanel) {
         this.crearProductoPanel = crearProductoPanel;
     }
-    private void onOK() {
-        // add your code here
-        dispose();
-    }
-
     private void onCancel() {
         // add your code here if necessary
         dispose();
     }
 
     public static void main(String[] args) {
-        EditarProductoDialog dialog = new EditarProductoDialog();
-        dialog.pack();
-        dialog.setVisible(true);
-        System.exit(0);
+       // EditarProductoDialog dialog = new EditarProductoDialog(MainFrame mainFrame);
+       // dialog.pack();
+       // dialog.setVisible(true);
+       // System.exit(0);
     }
 }
