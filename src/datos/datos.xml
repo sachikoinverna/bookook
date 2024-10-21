@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><inventario>
     <libros>
 
-    <libro ejemplares="12" generoLibro="1" id="1" imagen="src/images/default.jpg" precio="213.0" publicacion="2024-10-04" titulo="asf"><autoresLibro><autorLibro id="6"/></autoresLibro></libro></libros>
+    <libro ejemplares="135" generoLibro="5" id="122" imagen="src/images/default.jpg" precio="12.0" publicacion="2024-10-24" titulo="DSGFDAS"><autoresLibro><autorLibro id="8"/></autoresLibro></libro></libros>
     <generos>
         <genero id="1" nombre="Novela"/>
         <genero id="2" nombre="Cuento"/>

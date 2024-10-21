@@ -19,6 +19,8 @@ public class MainFrameController implements ActionListener {
         mainFrame.navigate("inicioPanel");
     }
     private void handlerGoCrearProductoPanel() {
+        mainFrame.getCrearProductoPanel().setCreateMode();
+        mainFrame.getCrearProductoPanel().cleanFields();
         mainFrame.navigate("crearProductoPanel");
     }
     private void handlerGoVerProductoPanel() {
@@ -32,7 +34,6 @@ public class MainFrameController implements ActionListener {
                 handlerGoInicioPanel();
                 break;
                 case GO_CREAR_PRODUCTO_PANEL:
-                    mainFrame.getCrearProductoPanel().cleanFields();
                     handlerGoCrearProductoPanel();
                     break;
                     case GO_VER_PRODUCTOS_PANEL:

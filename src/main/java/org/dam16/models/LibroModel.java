@@ -1,8 +1,7 @@
 package org.dam16.models;
 
 import java.util.ArrayList;
-import java.util.Date;
-
+import java.sql.Date;
 public class LibroModel {
     private int id;
     private String titulo;

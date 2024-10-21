@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import static org.dam16.controllers.CrearProductoControllerPanel.*;
@@ -112,6 +113,11 @@ public class CrearProductoPanel extends JPanel {
     }
     private void loadJListaSelected(ArrayList<AutorModel> autorModels) {
         DefaultListModel modelo = new DefaultListModel();
+        if(autorModels!=null){
+            for (AutorModel autorModel : autorModels) {
+                modelo.addElement(autorModel);
+            }
+        }
         setAutoresSelectedModel(modelo);
     }
     private void setImagePreviewPanel(){
@@ -128,9 +134,17 @@ public class CrearProductoPanel extends JPanel {
         bt_autoresnotselected.setActionCommand(CHANGE_TO_JLNOTSELECTED);
         bt_eliminarseleccion.setActionCommand(DELETE_SELECTION);
         bt_seleccionartodos.setActionCommand(SELECT_ALL);
-        bt_crearEditar.setActionCommand(CREATE_PRODUCT);
     }
-
+    public void setCreateMode(){
+        bt_crearEditar.setActionCommand(CREATE_PRODUCT);
+        bt_crearEditar.setText("Crear");
+        tx_id.setEnabled(true);
+    }
+    public void setEditMode(){
+        bt_crearEditar.setActionCommand(EDIT_PRODUCT);
+        bt_crearEditar.setText("Editar");
+        tx_id.setEnabled(false);
+    }
     public void addListener(ActionListener listener){
         bt_autoresnotselected.addActionListener(listener);
         bt_autoreselected.addActionListener(listener);
@@ -235,13 +249,43 @@ public class CrearProductoPanel extends JPanel {
         }
         return null;
     }
+    public void setLibroModel(LibroModel libroModel){
+        tx_id.setText(String.valueOf(libroModel.getId()));
+        tx_precio.setText(String.valueOf(libroModel.getPrecio()));
+        tx_titulo.setText(libroModel.getTitulo());
+        tx_numeroejemplares.setText(String.valueOf(libroModel.getEjemplares()));
+        cb_generos.setSelectedItem(libroModel.getGenero());
+        ck_stock.setSelected(libroModel.isStock());
+        imagePanel.setSelectedImage(libroModel.getImagen());
+        imagePanel.setBackgroundImage(imagePanel.getSetSelectedImage());
+        dp_fechapublicacion.setDate(libroModel.getFecha_publicacion().toLocalDate());
+        try {
+            if(XMLManager.getAllAutores()!=null) {
+                ArrayList<AutorModel> autoresNotSelected = XMLManager.getAllAutores();
+                for (int i = 0; i < autoresNotSelected.size(); i++) {
+                    for (int j=0;j<libroModel.getAutor().size();j++) {
+                        if (autoresNotSelected.get(i).getId() == libroModel.getAutor().get(j).getId()) {
+                            autoresNotSelected.remove(i);
+                        }
+                    }
+                }
+                loadJListaNotSelected(autoresNotSelected);
+                loadJListaSelected(libroModel.getAutor());
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
     public LibroModel getLibroModel() {
         if(!checkFields()){
             JOptionPane.showMessageDialog(mainPanel,errorMessage,"Error",JOptionPane.ERROR_MESSAGE);
         }
         else if(checkFields()) {
-            return new LibroModel(Integer.valueOf(tx_id.getText()), tx_titulo.getText(), new ArrayList<AutorModel>(getSelectedValues()), (GeneroModel) cb_generos.getSelectedItem(), Double.valueOf(tx_precio.getText()), Date.valueOf(dp_fechapublicacion.getDate()), Integer.valueOf(tx_numeroejemplares.getText()), ck_stock.isSelected());
+            return new LibroModel(Integer.valueOf(tx_id.getText()), tx_titulo.getText(), getSelectedValues(), (GeneroModel) cb_generos.getSelectedItem(), Double.valueOf(tx_precio.getText()), Date.valueOf(dp_fechapublicacion.getDate()), Integer.valueOf(tx_numeroejemplares.getText()), ck_stock.isSelected());
         }
         return null;
+    }
+    public LocalDate fromDateToLocalDate(Date date) {
+        return new java.sql.Date(date.getTime()).toLocalDate();
     }
 }

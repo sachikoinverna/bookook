@@ -10,8 +10,7 @@ import org.w3c.dom.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-
+import java.sql.Date;
 public class XMLManager {
     public static boolean createLibro(LibroModel libro) {
         Document document = XMLService.loadOrCreateXML();
@@ -180,6 +179,43 @@ public class XMLManager {
         }
         return false;
     }
+    public static boolean editLibro(LibroModel libro) {
+        Document document = XMLService.loadOrCreateXML();
+        if (document != null) {
+            NodeList nodeList = document.getElementsByTagName("libro");
+            for (int i = 0; i < nodeList.getLength(); i++) {
+                Element element = (Element) nodeList.item(i);
+                if (element.getAttribute("id").equals(String.valueOf(libro.getId()))) {
+                    element.setAttribute("id", String.valueOf(libro.getId()));
+                    element.setAttribute("titulo", libro.getTitulo());
+                    element.setAttribute("generoLibro", String.valueOf(libro.getGenero().getIdGenero()));
+                    element.setAttribute("ejemplares", String.valueOf(libro.getEjemplares()));
+                    element.setAttribute("publicacion", libro.getFecha_publicacion().toString());
+                    element.setAttribute("imagen",libro.getImagen());
+                    element.setAttribute("precio", String.valueOf(libro.getPrecio()));
+                    /*NodeList nodeAutor = element.getElementsByTagName("autorLibro");
+                    for (int j = 0; j < nodeAutor.getLength(); i++) {
+                        Element autorElement = (Element) nodeAutor.item(j);
+                        if(autorElement.getAttribute("id").equals(String.valueOf(libro.getId()))) {
+                            autorElement.getParentNode().removeChild(autorElement);
+                        }
+                    }
+                    NodeList nodeAutores = document.getElementsByTagName("autoresLibro");
+                    Element elementAutores = (Element) nodeAutores.item(0);
+                    elementAutores.getParentNode().removeChild(elementAutores);
+                    Element elementAutoresFinal =
+                    for (int z = 0; z < libro.getAutor().size(); z++) {
+                        Element autorElement = document.createElement("autorLibro");
+                        autorElement.setAttribute("id", String.valueOf(libro.getAutor().get(i).getId()));
+                        autoresElement.appendChild(autorElement);
+                    }
+                    }*/
+                        return XMLService.saveXML(document);
+                }
+            }
+        }
+        return false;
+    }
     public static ArrayList<LibroModel> getAllLibros() throws ParseException {
         Document document = XMLService.loadOrCreateXML();
         if(document != null) {
@@ -188,8 +224,6 @@ public class XMLManager {
             if (nodeList.getLength() > 0) {
                 for (int i = 0; i < nodeList.getLength(); i++) {
                     Element element = (Element) nodeList.item(i);
-                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                    Date fecha = formatter.parse(element.getAttribute("publicacion"));
                     ArrayList<AutorModel> autorModels = new ArrayList<>();
                     NodeList nodel = element.getElementsByTagName("autorLibro");
                     NodeList nodeAutores = document.getElementsByTagName("autor");
@@ -222,7 +256,7 @@ public class XMLManager {
                                     autorModels,
                                     generoModel,
                                     Double.valueOf(element.getAttribute("precio")),
-                                    fecha, Integer.parseInt(element.getAttribute("ejemplares")),
+                                    Date.valueOf(element.getAttribute("publicacion")), Integer.parseInt(element.getAttribute("ejemplares")),
                                     Boolean.parseBoolean(element.getAttribute("stock")),
                                     element.getAttribute("imagen")));
                 }

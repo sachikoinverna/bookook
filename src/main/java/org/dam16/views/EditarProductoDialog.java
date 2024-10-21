@@ -1,5 +1,7 @@
 package org.dam16.views;
 
+import org.dam16.models.LibroModel;
+
 import javax.swing.*;
 import java.awt.event.*;
 
@@ -8,12 +10,16 @@ public class EditarProductoDialog extends JDialog {
     private JButton buttonCancel;
     private JPanel mainPanel;
     private CrearProductoPanel crearProductoPanel;
-    public EditarProductoDialog(MainFrame mainFrame) {
+    private LibroModel libroModel;
+    public EditarProductoDialog(MainFrame mainFrame,LibroModel libroModel) {
         setContentPane(contentPane);
         setModal(true);
         pack();
         getRootPane().setDefaultButton(buttonCancel);
         setCrearProductoPanel(mainFrame.getCrearProductoPanel());
+        this.libroModel = libroModel;
+        crearProductoPanel.setEditMode();
+        crearProductoPanel.setLibroModel(libroModel);
         //mainFrame.getCrearProductoPanel().s
         mainPanel.add(crearProductoPanel);
         buttonCancel.addActionListener(new ActionListener() {
@@ -37,6 +43,7 @@ public class EditarProductoDialog extends JDialog {
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
+
     private void setCrearProductoPanel(CrearProductoPanel crearProductoPanel) {
         this.crearProductoPanel = crearProductoPanel;
     }

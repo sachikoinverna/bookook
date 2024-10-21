@@ -92,7 +92,19 @@ public class CrearProductoControllerPanel implements ActionListener {
             }
         }
     }
-    private void handlerEditProduct() {}
+    private void handlerEditProduct() {
+        if (crearProductoPanel.getLibroModel() != null) {
+                if (!mainFrame.getCrearProductoPanel().getImagePreviewPanel().getSetSelectedImage().equals("src/images/default.jpg")) {
+                    FileUtils.guardarImagen(mainFrame.getCrearProductoPanel().getImagePreviewPanel().getSetSelectedImage());
+                }
+                LibroModel libro = crearProductoPanel.getLibroModel();
+                libro.setImagen(mainFrame.getCrearProductoPanel().getImagePreviewPanel().getSetSelectedImage());
+                boolean okCrear = XMLManager.editLibro(libro);
+                if (okCrear) {
+                    JOptionPane.showMessageDialog(null, "Felicidades");
+                }
+        }
+    }
     @Override
     public void actionPerformed(ActionEvent e) {
         String action = e.getActionCommand();

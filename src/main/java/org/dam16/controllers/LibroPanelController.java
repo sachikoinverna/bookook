@@ -20,10 +20,9 @@ public class LibroPanelController  implements ActionListener {
         this.mainFrame = mainFrame;
     }
     private void handlerEditProduct(){
-        EditarProductoDialog editarProductoDialog = new EditarProductoDialog(mainFrame);
+        EditarProductoDialog editarProductoDialog = new EditarProductoDialog(mainFrame, libroPanel.getLibro());
         editarProductoDialog.setSize(1150,680);
         editarProductoDialog.setVisible(true);
-        editarProductoDialog.show();
     }
     private void handlerDeleteProduct(){
         boolean eliminado = XMLManager.deleteLibroById(libroPanel.getLibro().getId());
