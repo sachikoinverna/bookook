@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class VerProductosPanel extends JPanel {
     private JPanel mainPanel;
     private JPanel booksListPanel;
+    private JTextField tx_idLibro;
     private Image backgroundImage;
     private MainFrame mainFrame;
     public VerProductosPanel(MainFrame mainFrame) {

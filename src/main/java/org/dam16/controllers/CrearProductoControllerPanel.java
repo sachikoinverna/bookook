@@ -11,6 +11,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 public class CrearProductoControllerPanel implements ActionListener {
@@ -92,7 +93,7 @@ public class CrearProductoControllerPanel implements ActionListener {
             }
         }
     }
-    private void handlerEditProduct() {
+    private void handlerEditProduct() throws ParseException {
         if (crearProductoPanel.getLibroModel() != null) {
                 if (!mainFrame.getCrearProductoPanel().getImagePreviewPanel().getSetSelectedImage().equals("src/images/default.jpg")) {
                     FileUtils.guardarImagen(mainFrame.getCrearProductoPanel().getImagePreviewPanel().getSetSelectedImage());
@@ -103,6 +104,9 @@ public class CrearProductoControllerPanel implements ActionListener {
                 if (okCrear) {
                     JOptionPane.showMessageDialog(null, "Felicidades");
                     mainFrame.getCrearProductoPanel().cleanFields();
+                    mainFrame.getVerProductosPanel().setLibroPanel(XMLManager.getAllLibros());
+                    mainFrame.getVerProductosPanel().revalidate();
+                    mainFrame.getVerProductosPanel().repaint();
                 }
         }
     }
@@ -114,7 +118,11 @@ public class CrearProductoControllerPanel implements ActionListener {
                 handlerCreateProduct();
                 break;
                 case EDIT_PRODUCT:
-                    handlerEditProduct();
+                    try {
+                        handlerEditProduct();
+                    } catch (ParseException ex) {
+                        throw new RuntimeException(ex);
+                    }
                     break;
                     case CHANGE_TO_JLNOTSELECTED:
                         handlerChangeToJLNOTSELECTED();

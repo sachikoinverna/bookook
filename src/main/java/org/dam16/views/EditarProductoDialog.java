@@ -1,6 +1,7 @@
 package org.dam16.views;
 
 import org.dam16.models.LibroModel;
+import sun.java2d.Disposer;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -11,6 +12,7 @@ public class EditarProductoDialog extends JDialog {
     private JPanel mainPanel;
     private CrearProductoPanel crearProductoPanel;
     private LibroModel libroModel;
+    private MainFrame mainFrame;
     public EditarProductoDialog(MainFrame mainFrame,LibroModel libroModel) {
         setContentPane(contentPane);
         setModal(true);

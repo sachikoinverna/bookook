@@ -67,7 +67,9 @@ public class XMLManager {
 
     public static boolean crearGeneros(ArrayList<GeneroModel> generoModels) {
         Document document = XMLService.loadOrCreateXML();
-        if(document != null) {
+        if(document == null) {
+            return false;
+        }
             Element element = document.createElement("genero");
             for (GeneroModel generoModel : generoModels) {
                 element.setAttribute("id", String.valueOf(generoModel.getIdGenero()));
@@ -79,8 +81,6 @@ public class XMLManager {
                 }
             }
             return XMLService.saveXML(document);
-        }
-        return false;
     }
     public static GeneroModel getGeneroById(int id) {
         Document document = XMLService.loadOrCreateXML();
