@@ -1,9 +1,11 @@
 package org.dam16.controllers;
 
 import org.dam16.views.MainFrame;
+import org.dam16.xml.XMLManager;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 
 public class MainFrameController implements ActionListener {
     private MainFrame mainFrame;
@@ -30,9 +32,17 @@ public class MainFrameController implements ActionListener {
                 handlerGoInicioPanel();
                 break;
                 case GO_CREAR_PRODUCTO_PANEL:
+                    mainFrame.getCrearProductoPanel().cleanFields();
                     handlerGoCrearProductoPanel();
                     break;
                     case GO_VER_PRODUCTOS_PANEL:
+                        try {
+                            if(XMLManager.getAllLibros()!=null) {
+                                mainFrame.getVerProductosPanel().setLibroPanel(XMLManager.getAllLibros());
+                            }
+                        } catch (ParseException ex) {
+                            throw new RuntimeException(ex);
+                        }
                         handlerGoVerProductoPanel();
                         break;
         }

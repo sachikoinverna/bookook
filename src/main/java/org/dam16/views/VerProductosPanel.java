@@ -15,9 +15,10 @@ public class VerProductosPanel extends JPanel {
     private Image backgroundImage;
     private MainFrame mainFrame;
     public VerProductosPanel(MainFrame mainFrame) {
+        this.mainFrame = mainFrame;
         add(mainPanel);
         mainPanel.setOpaque(false);
-        this.mainFrame = mainFrame;
+        setCommands();
         booksListPanel.setLayout(new BoxLayout(booksListPanel,BoxLayout.Y_AXIS));
     }
     @Override
@@ -32,6 +33,9 @@ public class VerProductosPanel extends JPanel {
         repaint();
     }
     public void setLibroPanel(ArrayList<LibroModel> listaLibros) {
+        if(booksListPanel != null) {
+            booksListPanel.removeAll();
+        }
         for (LibroModel libro : listaLibros) {
             LibroPanel libroPanel = new LibroPanel(libro);
             booksListPanel.add(libroPanel);

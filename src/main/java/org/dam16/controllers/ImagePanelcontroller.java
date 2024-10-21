@@ -24,13 +24,8 @@ public class ImagePanelcontroller implements ActionListener {
         }
     }
     private void handlerSetDefaultImage(){
-        try {
-            String imagen = URLDecoder.decode(getClass().getResource("/default.jpg").getPath(),"UTF-8");
-            imagePanel.setSelectedImage(imagen);
-            imagePanel.setBackgroundImage(imagen);
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
+            imagePanel.setSelectedImage("src/images/default.jpg");
+            imagePanel.setBackgroundImage(imagePanel.getSetSelectedImage());
     }
     private void handlerDeleteImage(){
         handlerSetDefaultImage();

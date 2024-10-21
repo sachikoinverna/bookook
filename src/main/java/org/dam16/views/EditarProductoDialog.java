@@ -13,6 +13,8 @@ public class EditarProductoDialog extends JDialog {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
+        setCrearProductoPanel(new CrearProductoPanel());
+        mainPanel.add(crearProductoPanel);
 
 
         buttonOK.addActionListener(new ActionListener() {

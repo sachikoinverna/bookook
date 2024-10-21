@@ -18,7 +18,6 @@ public class ImagePanel extends JPanel {
         add(mainPanel);
         setCommands();
         mainPanel.setOpaque(false);
-        setSelectedImage("src/images/default.jpg");
     }
     public String getSetSelectedImage() {
         return setSelectedImage;
@@ -30,6 +29,10 @@ public class ImagePanel extends JPanel {
         ImageIcon icon = new ImageIcon(image);
         Image imagenEscalada = icon.getImage().getScaledInstance(209, 209, Image.SCALE_SMOOTH);
         lb_image.setIcon(new ImageIcon(imagenEscalada));
+    }
+    public void setDefaultImage(){
+        setSelectedImage("src/images/default.jpg");
+        setBackgroundImage(getSetSelectedImage());
     }
     private void setCommands(){
         bt_elegirImagen.setActionCommand(SELECT_IMAGE);

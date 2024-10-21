@@ -167,6 +167,13 @@ public class CrearProductoPanel extends JPanel {
             getAutoresSelected().removeAllElements();
         }
         tx_id.setText("");
+        tx_titulo.setText("");
+        tx_numeroejemplares.setText("");
+        tx_precio.setText("");
+        dp_fechapublicacion.clear();
+        cb_generos.setSelectedIndex(0);
+        ck_stock.setSelected(false);
+        imagePanel.setDefaultImage();
     }
     private boolean checkFields(){
         if(!checkFieldsEmpty() && !checkFieldsValueIncorrect()){

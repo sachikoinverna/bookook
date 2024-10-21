@@ -207,6 +207,7 @@
           <forms defaultalign-horz="false" defaultalign-vert="false"/>
         </constraints>
         <properties>
+          <opaque value="false"/>
           <text value="Stock"/>
         </properties>
       </component>

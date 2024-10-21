@@ -36,7 +36,7 @@ public class CrearProductoControllerPanel implements ActionListener {
                 libro.setImagen(mainFrame.getCrearProductoPanel().getImagePreviewPanel().getSetSelectedImage());
                 boolean okCrear = XMLManager.createLibro(libro);
                 if (okCrear) {
-                    JOptionPane.showMessageDialog(null, "Felicidiades");
+                    JOptionPane.showMessageDialog(null, "Felicidades");
                 }
             }
 
