@@ -102,6 +102,7 @@ public class CrearProductoControllerPanel implements ActionListener {
                 boolean okCrear = XMLManager.editLibro(libro);
                 if (okCrear) {
                     JOptionPane.showMessageDialog(null, "Felicidades");
+                    mainFrame.getCrearProductoPanel().cleanFields();
                 }
         }
     }

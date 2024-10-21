@@ -193,27 +193,34 @@ public class XMLManager {
                     element.setAttribute("publicacion", libro.getFecha_publicacion().toString());
                     element.setAttribute("imagen",libro.getImagen());
                     element.setAttribute("precio", String.valueOf(libro.getPrecio()));
-                    /*NodeList nodeAutor = element.getElementsByTagName("autorLibro");
-                    for (int j = 0; j < nodeAutor.getLength(); i++) {
-                        Element autorElement = (Element) nodeAutor.item(j);
-                        if(autorElement.getAttribute("id").equals(String.valueOf(libro.getId()))) {
+                    NodeList autores = element.getElementsByTagName("autoresLibro");
+                    Element autorElementNode = (Element) autores.item(0);
+                    NodeList nodeAutor = element.getElementsByTagName("autorLibro");
+
+                    if (nodeAutor.getLength() < libro.getAutor().size()) {
+                        for (int j = 0; j < nodeAutor.getLength(); j++) {
+                            Element autorElement = (Element) nodeAutor.item(j);
+                            autorElement.setAttribute("id", String.valueOf(libro.getAutor().get(j).getId()));
+                        }
+                        for (int z = nodeAutor.getLength(); z < libro.getAutor().size(); z++) {
+                            Element autorElement = document.createElement("autorLibro");
+                            autorElement.setAttribute("id", String.valueOf(libro.getAutor().get(z).getId()));
+                            autorElementNode.appendChild(autorElement);
+                        }
+                    } else if (nodeAutor.getLength()>libro.getAutor().size()) {
+                        for (int j = 0; j < libro.getAutor().size(); j++) {
+                            Element autorElement = (Element) nodeAutor.item(j);
+                            autorElement.setAttribute("id", String.valueOf(libro.getAutor().get(j).getId()));
+                        }
+                        for (int z = libro.getAutor().size(); z < nodeAutor.getLength(); z++) {
+                            Element autorElement = (Element) nodeAutor.item(z);
                             autorElement.getParentNode().removeChild(autorElement);
                         }
                     }
-                    NodeList nodeAutores = document.getElementsByTagName("autoresLibro");
-                    Element elementAutores = (Element) nodeAutores.item(0);
-                    elementAutores.getParentNode().removeChild(elementAutores);
-                    Element elementAutoresFinal =
-                    for (int z = 0; z < libro.getAutor().size(); z++) {
-                        Element autorElement = document.createElement("autorLibro");
-                        autorElement.setAttribute("id", String.valueOf(libro.getAutor().get(i).getId()));
-                        autoresElement.appendChild(autorElement);
-                    }
-                    }*/
+                }
                         return XMLService.saveXML(document);
                 }
             }
-        }
         return false;
     }
     public static ArrayList<LibroModel> getAllLibros() throws ParseException {

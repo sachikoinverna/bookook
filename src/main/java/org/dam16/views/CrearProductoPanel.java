@@ -214,7 +214,7 @@ public class CrearProductoPanel extends JPanel {
     }
     private boolean checkFieldsEmpty(){
 
-        if(tx_id.getText().isEmpty() || tx_titulo.getText().isEmpty() || tx_precio.getText().isEmpty() || tx_numeroejemplares.getText().isEmpty() || getAutoresSelected().isEmpty() || dp_fechapublicacion.getDate()!=null) {
+        if(tx_id.getText().isEmpty() || tx_titulo.getText().isEmpty() || tx_precio.getText().isEmpty() || tx_numeroejemplares.getText().isEmpty() || getAutoresSelected().isEmpty() || dp_fechapublicacion!=null) {
             errorMessage="Faltan los siguientes datos: \n";
             if (tx_id.getText().isEmpty()) {
                 errorMessage += "✯Id \n";
@@ -231,7 +231,7 @@ public class CrearProductoPanel extends JPanel {
             if (getAutoresSelected().isEmpty()) {
                 errorMessage += "✯Autores seleccionados \n";
             }
-            if (dp_fechapublicacion.getDate() != null) {
+            if (dp_fechapublicacion != null) {
                 errorMessage += "✯Fecha de publicacion \n";
             }
             return false;
@@ -284,8 +284,5 @@ public class CrearProductoPanel extends JPanel {
             return new LibroModel(Integer.valueOf(tx_id.getText()), tx_titulo.getText(), getSelectedValues(), (GeneroModel) cb_generos.getSelectedItem(), Double.valueOf(tx_precio.getText()), Date.valueOf(dp_fechapublicacion.getDate()), Integer.valueOf(tx_numeroejemplares.getText()), ck_stock.isSelected());
         }
         return null;
-    }
-    public LocalDate fromDateToLocalDate(Date date) {
-        return new java.sql.Date(date.getTime()).toLocalDate();
     }
 }

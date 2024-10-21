@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><inventario>
-    <libros>
+        <libros>
 
-    <libro ejemplares="135" generoLibro="5" id="122" imagen="src/images/default.jpg" precio="12.0" publicacion="2024-10-24" titulo="DSGFDAS"><autoresLibro><autorLibro id="8"/></autoresLibro></libro></libros>
-    <generos>
-        <genero id="1" nombre="Novela"/>
-        <genero id="2" nombre="Cuento"/>
-        <genero id="3" nombre="Poesía"/>
-        <genero id="4" nombre="Ensayo"/>
-        <genero id="5" nombre="Drama"/>
-        <genero id="6" nombre="Ciencia ficción"/>
-        <genero id="7" nombre="Fantasía"/>
-        <genero id="8" nombre="Realismo mágico"/>
-        <genero id="9" nombre="Terror"/>
-        <genero id="10" nombre="Suspense"/>
-        <genero id="11" nombre="Romance"/>
-        <genero id="12" nombre="Aventura"/>
-        <genero id="13" nombre="Biografía"/>
-        <genero id="14" nombre="Autobiografía"/>
-        <genero id="15" nombre="Crónica"/>
-        <genero id="16" nombre="Sátira"/>
-        <genero id="17" nombre="Épica"/>
-        <genero id="18" nombre="Distopía"/>
-        <genero id="19" nombre="Historia"/>
-        <genero id="20" nombre="Fábula"/>
-    </generos>
-    <autores>
-        <autor id="1" nombre="Gabriel García Márquez"/>
-        <autor id="2" nombre="Jorge Luis Borges"/>
-        <autor id="3" nombre="Jane Austen"/>
-        <autor id="4" nombre="Virginia Woolf"/>
-        <autor id="5" nombre="Haruki Murakami"/>
-        <autor id="6" nombre="Franz Kafka"/>
-        <autor id="7" nombre="William Faulkner"/>
-        <autor id="8" nombre="Fyodor Dostoevsky"/>
-        <autor id="9" nombre="Leo Tolstoy"/>
-        <autor id="10" nombre="Suzzane Collins"/>
-        <autor id="11" nombre="Isabel Allende"/>
-        <autor id="12" nombre="Charles Dickens"/>
-        <autor id="13" nombre="George Orwell"/>
-        <autor id="14" nombre="Ernest Hemingway"/>
-        <autor id="15" nombre="James Joyce"/>
-        <autor id="16" nombre="Julio Cortázar"/>
-        <autor id="17" nombre="J.K. Rowling"/>
-        <autor id="18" nombre="Mark Twain"/>
-        <autor id="19" nombre="Emily Brontë"/>
-        <autor id="20" nombre="Aldous Huxley"/>
-    </autores>
-</inventario>
+        <libro ejemplares="12" generoLibro="1" id="1" imagen="src/images/default.jpg" precio="14.46" publicacion="2024-10-11" titulo="asfas"><autoresLibro><autorLibro id="3"/><autorLibro id="6"/><autorLibro id="9"/></autoresLibro></libro></libros>
+        <generos>
+            <genero id="1" nombre="Novela"/>
+            <genero id="2" nombre="Cuento"/>
+            <genero id="3" nombre="Poesía"/>
+            <genero id="4" nombre="Ensayo"/>
+            <genero id="5" nombre="Drama"/>
+            <genero id="6" nombre="Ciencia ficción"/>
+            <genero id="7" nombre="Fantasía"/>
+            <genero id="8" nombre="Realismo mágico"/>
+            <genero id="9" nombre="Terror"/>
+            <genero id="10" nombre="Suspense"/>
+            <genero id="11" nombre="Romance"/>
+            <genero id="12" nombre="Aventura"/>
+            <genero id="13" nombre="Biografía"/>
+            <genero id="14" nombre="Autobiografía"/>
+            <genero id="15" nombre="Crónica"/>
+            <genero id="16" nombre="Sátira"/>
+            <genero id="17" nombre="Épica"/>
+            <genero id="18" nombre="Distopía"/>
+            <genero id="19" nombre="Historia"/>
+            <genero id="20" nombre="Fábula"/>
+        </generos>
+        <autores>
+            <autor id="1" nombre="Gabriel García Márquez"/>
+            <autor id="2" nombre="Jorge Luis Borges"/>
+            <autor id="3" nombre="Jane Austen"/>
+            <autor id="4" nombre="Virginia Woolf"/>
+            <autor id="5" nombre="Haruki Murakami"/>
+            <autor id="6" nombre="Franz Kafka"/>
+            <autor id="7" nombre="William Faulkner"/>
+            <autor id="8" nombre="Fyodor Dostoevsky"/>
+            <autor id="9" nombre="Leo Tolstoy"/>
+            <autor id="10" nombre="Suzzane Collins"/>
+            <autor id="11" nombre="Isabel Allende"/>
+            <autor id="12" nombre="Charles Dickens"/>
+            <autor id="13" nombre="George Orwell"/>
+            <autor id="14" nombre="Ernest Hemingway"/>
+            <autor id="15" nombre="James Joyce"/>
+            <autor id="16" nombre="Julio Cortázar"/>
+            <autor id="17" nombre="J.K. Rowling"/>
+            <autor id="18" nombre="Mark Twain"/>
+            <autor id="19" nombre="Emily Brontë"/>
+            <autor id="20" nombre="Aldous Huxley"/>
+        </autores>
+    </inventario>
