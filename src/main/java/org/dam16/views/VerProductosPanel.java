@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 public class VerProductosPanel extends JPanel {
     private JPanel mainPanel;
-    private JPanel panelConsultas;
     private JPanel booksListPanel;
     private Image backgroundImage;
     private MainFrame mainFrame;

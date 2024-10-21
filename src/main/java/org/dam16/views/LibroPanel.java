@@ -35,7 +35,7 @@ public class LibroPanel extends JPanel {
     }
     private void setProductImage(String image) {
         ImageIcon icon = new ImageIcon(image);
-        Image imagenEscalada = icon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+        Image imagenEscalada = icon.getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH);
         lb_imagen.setIcon(new ImageIcon(imagenEscalada));
     }
     public void setData(LibroModel libro) {

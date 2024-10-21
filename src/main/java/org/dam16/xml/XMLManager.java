@@ -196,7 +196,6 @@ public class XMLManager {
                     NodeList autores = element.getElementsByTagName("autoresLibro");
                     Element autorElementNode = (Element) autores.item(0);
                     NodeList nodeAutor = element.getElementsByTagName("autorLibro");
-
                     if (nodeAutor.getLength() < libro.getAutor().size()) {
                         for (int j = 0; j < nodeAutor.getLength(); j++) {
                             Element autorElement = (Element) nodeAutor.item(j);
@@ -212,7 +211,7 @@ public class XMLManager {
                             Element autorElement = (Element) nodeAutor.item(j);
                             autorElement.setAttribute("id", String.valueOf(libro.getAutor().get(j).getId()));
                         }
-                        for (int z = libro.getAutor().size(); z < nodeAutor.getLength(); z++) {
+                        for (int z = libro.getAutor().size(); z < nodeAutor.getLength(); z=libro.getAutor().size()) {
                             Element autorElement = (Element) nodeAutor.item(z);
                             autorElement.getParentNode().removeChild(autorElement);
                         }
