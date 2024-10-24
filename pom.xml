@@ -47,9 +47,6 @@
       <resource>
         <directory>src/images</directory>
       </resource>
-      <resource>
-        <directory>src/datos</directory>
-      </resource>
     </resources>
   </build>
 </project>
