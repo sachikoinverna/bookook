@@ -2,61 +2,31 @@ package org.dam16.views;
 
 import org.dam16.models.LibroModel;
 import javax.swing.*;
-import java.awt.event.*;
+import java.awt.*;
 
 public class EditarProductoDialog extends JDialog {
-    private JPanel contentPane;
-    private JButton buttonCancel;
     private JPanel mainPanel;
     private CrearProductoPanel crearProductoPanel;
     private LibroModel libroModel;
     private MainFrame mainFrame;
-    public EditarProductoDialog(MainFrame mainFrame,LibroModel libroModel) {
-        setContentPane(mainPanel);
-        setCrearProductoPanel(mainFrame.getCrearProductoPanel());
-        mainPanel.add(crearProductoPanel);
-        setModal(true);
-        pack();
-        getRootPane().setDefaultButton(buttonCancel);
+    public EditarProductoDialog(MainFrame mainFrame,LibroModel libroModel, boolean modal) {
+        super(mainFrame, modal);
+        this.mainFrame = mainFrame;
         this.libroModel = libroModel;
-        crearProductoPanel.setEditMode();
-        crearProductoPanel.setLibroModel(libroModel);
-        //mainFrame.getCrearProductoPanel().s
-        mainPanel.add(crearProductoPanel);
-        buttonCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        });
+        initWindow();
 
-        // call onCancel() when cross is clicked
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                onCancel();
-            }
-        });
-
-        // call onCancel() on ESCAPE
-        contentPane.registerKeyboardAction(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+    }
+    public void initWindow() {
+        mainPanel.add(mainFrame.getCrearProductoPanel().getMainPanel());
+        setContentPane(mainPanel);
+        pack();
+        setLocationRelativeTo(null);
+        mainFrame.getCrearProductoPanel().setEditMode();
+        mainFrame.getCrearProductoPanel().setLibroModel(libroModel);
+        mainPanel.setBackground(new Color(111,203,229));
     }
 
-    private void setCrearProductoPanel(CrearProductoPanel crearProductoPanel) {
-        this.crearProductoPanel = crearProductoPanel;
-    }
-    private void onCancel() {
-        // add your code here if necessary
-        dispose();
-    }
-
-    public static void main(String[] args) {
-       // EditarProductoDialog dialog = new EditarProductoDialog(MainFrame mainFrame);
-       // dialog.pack();
-       // dialog.setVisible(true);
-       // System.exit(0);
+    public void showWindow() {
+        setVisible(true);
     }
 }

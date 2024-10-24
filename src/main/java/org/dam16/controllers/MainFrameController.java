@@ -21,6 +21,9 @@ public class MainFrameController implements ActionListener {
     private void handlerGoCrearProductoPanel() {
         mainFrame.getCrearProductoPanel().setCreateMode();
         mainFrame.getCrearProductoPanel().cleanFields();
+        mainFrame.getCrearProductoPanel().add(mainFrame.getCrearProductoPanel().getMainPanel());
+        mainFrame.getCrearProductoPanel().revalidate();
+        mainFrame.getCrearProductoPanel().repaint();
         mainFrame.navigate("crearProductoPanel");
     }
     private void handlerGoVerProductoPanel() {

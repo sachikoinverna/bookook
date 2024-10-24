@@ -11,6 +11,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.sql.Date;
+
+import static org.dam16.services.XMLService.ROOT_NODE;
+
 public class XMLManager {
     public static boolean createLibro(LibroModel libro) {
         Document document = XMLService.loadOrCreateXML();
@@ -39,6 +42,10 @@ public class XMLManager {
                 }
             }*/
             //if (generoExists && !autoresExists.contains(false)) {
+            if(document.getElementsByTagName("libros").getLength()==0) {
+                Element element = document.createElement("libros");
+                document.appendChild(element);
+            }
                 Element element = document.createElement("libro");
                 element.setAttribute("id", String.valueOf(libro.getId()));
                 element.setAttribute("titulo", libro.getTitulo());
@@ -70,16 +77,26 @@ public class XMLManager {
         if(document == null) {
             return false;
         }
-            Element element = document.createElement("genero");
-            for (GeneroModel generoModel : generoModels) {
-                element.setAttribute("id", String.valueOf(generoModel.getIdGenero()));
-                element.setAttribute("nombre", generoModel.getGenero());
-                NodeList nodeList = document.getElementsByTagName("generos");
-                if (nodeList.getLength() > 0) {
-                    Element parent = (Element) nodeList.item(0);
-                    parent.appendChild(element);
-                }
+        if(document.getElementsByTagName("generos").getLength()==0) {
+            NodeList nodeListRoot = document.getElementsByTagName(ROOT_NODE);
+            if (nodeListRoot.getLength() > 0 ) {
+                Element parent = (Element) nodeListRoot.item(0);
+                Element elementoGeneros = document.createElement("generos");
+                parent.appendChild(elementoGeneros);
             }
+        }
+                for (GeneroModel generoModel : generoModels) {
+                    if(getGeneroById(generoModel.getIdGenero()) == null) {
+                        Element element = document.createElement("genero");
+                        element.setAttribute("id", String.valueOf(generoModel.getIdGenero()));
+                        element.setAttribute("nombre", generoModel.getGenero());
+                        NodeList nodeList = document.getElementsByTagName("generos");
+                        if (nodeList.getLength() > 0) {
+                            Element parent = (Element) nodeList.item(0);
+                            parent.appendChild(element);
+                        }
+                    }
+                }
             return XMLService.saveXML(document);
     }
     public static GeneroModel getGeneroById(int id) {
@@ -99,11 +116,22 @@ public class XMLManager {
         }
         return null;
     }
-    public static boolean crearAutores(ArrayList<AutorModel> autorModels) {
+    public static boolean crearAutores(ArrayList<AutorModel> autorModels) throws Exception {
         Document document = XMLService.loadOrCreateXML();
-        if(document != null) {
-            Element element = document.createElement("autor");
-            for (AutorModel autorModel : autorModels) {
+        if(document == null) {
+            return false;
+        }
+        if(document.getElementsByTagName("autores").getLength()==0) {
+            NodeList nodeListRoot = document.getElementsByTagName(ROOT_NODE);
+            if (nodeListRoot.getLength() > 0 ) {
+                Element parent = (Element) nodeListRoot.item(0);
+                Element elementoGeneros = document.createElement("autores");
+                parent.appendChild(elementoGeneros);
+            }
+        }
+        for (AutorModel autorModel : autorModels) {
+            if(getAutoresById(autorModel.getId()) == null) {
+                Element element = document.createElement("autor");
                 element.setAttribute("id", String.valueOf(autorModel.getId()));
                 element.setAttribute("nombre", autorModel.getName());
                 NodeList nodeList = document.getElementsByTagName("autores");
@@ -112,9 +140,8 @@ public class XMLManager {
                     parent.appendChild(element);
                 }
             }
-            return XMLService.saveXML(document);
         }
-        return false;
+        return XMLService.saveXML(document);
     }
     public static AutorModel getAutoresById(int id) throws Exception {
         Document document = XMLService.loadOrCreateXML();

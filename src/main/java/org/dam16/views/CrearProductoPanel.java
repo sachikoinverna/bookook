@@ -37,7 +37,9 @@ public class CrearProductoPanel extends JPanel {
     private JButton bt_crearEditar;
     private String errorMessage;
     private Image backgroundImage;
-
+    public void again (){
+        setImagePreviewPanel();
+    }
     public CrearProductoPanel() {
         add(mainPanel);
         mainPanel.setOpaque(false);
@@ -46,7 +48,7 @@ public class CrearProductoPanel extends JPanel {
         tx_id.addKeyListener(new KeyAdapter() {
                                  @Override
                                  public void keyReleased(KeyEvent e) {
-                                     if(Character.isLetter(e.getKeyChar()) || Character.isSpaceChar(e.getKeyChar())){
+                                     if((!Character.isDigit(e.getKeyChar()) || (tx_id.getText().equals("0") && tx_id.getText().length() ==1)) && tx_id.getText().length()>0){
                                          tx_id.setText(tx_id.getText().substring(0,tx_id.getText().length()-1));
                                      }
                                  }
@@ -190,21 +192,14 @@ public class CrearProductoPanel extends JPanel {
         imagePanel.setDefaultImage();
     }
     private boolean checkFields(){
-        if(!checkFieldsEmpty() && !checkFieldsValueIncorrect()){
+        if(!checkFieldsEmpty() || !checkFieldsValueIncorrect()) {
             return false;
         }
         return true;
     }
     private boolean checkFieldsValueIncorrect(){
-        if(tx_id.getText().equals("0") || tx_precio.getText().equals("0")){
-            if(!checkFieldsEmpty()) {
-                errorMessage += "\n Los siguientes datos no pueden ser cero: \n";
-            } else if (checkFieldsEmpty()) {
+        if(tx_precio.getText().equals("0")){
                 errorMessage="Los siguientes datos no pueden ser cero: \n";
-            }
-                if(tx_id.getText().equals("0")){
-                    errorMessage+="✯Id \n";
-                }
                 if(tx_precio.getText().equals("0")){
                     errorMessage+="✯Precio \n";
                 }
@@ -214,7 +209,7 @@ public class CrearProductoPanel extends JPanel {
     }
     private boolean checkFieldsEmpty(){
 
-        if(tx_id.getText().isEmpty() || tx_titulo.getText().isEmpty() || tx_precio.getText().isEmpty() || tx_numeroejemplares.getText().isEmpty() || getAutoresSelected().isEmpty() || dp_fechapublicacion!=null) {
+        if(tx_id.getText().isEmpty() || tx_titulo.getText().isEmpty() || tx_precio.getText().isEmpty() || tx_numeroejemplares.getText().isEmpty() || getAutoresSelected().isEmpty() || dp_fechapublicacion.getDate()==null) {
             errorMessage="Faltan los siguientes datos: \n";
             if (tx_id.getText().isEmpty()) {
                 errorMessage += "✯Id \n";
@@ -231,7 +226,7 @@ public class CrearProductoPanel extends JPanel {
             if (getAutoresSelected().isEmpty()) {
                 errorMessage += "✯Autores seleccionados \n";
             }
-            if (dp_fechapublicacion != null) {
+            if (dp_fechapublicacion.getDate()==null) {
                 errorMessage += "✯Fecha de publicacion \n";
             }
             return false;
@@ -284,5 +279,8 @@ public class CrearProductoPanel extends JPanel {
             return new LibroModel(Integer.valueOf(tx_id.getText()), tx_titulo.getText(), getSelectedValues(), (GeneroModel) cb_generos.getSelectedItem(), Double.valueOf(tx_precio.getText()), Date.valueOf(dp_fechapublicacion.getDate()), Integer.valueOf(tx_numeroejemplares.getText()), ck_stock.isSelected());
         }
         return null;
+    }
+    public JPanel getMainPanel() {
+        return mainPanel;
     }
 }

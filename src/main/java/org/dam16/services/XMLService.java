@@ -162,6 +162,6 @@ public class XMLService {
 
     // Método que devuelve la ruta completa del archivo
     public static String getFilePath(String fileName) {
-        return "src/datos/"+fileName;
+        return System.getProperty("user.home") + "/" + PROJECT_NAME + "/" + fileName;
     }
 }

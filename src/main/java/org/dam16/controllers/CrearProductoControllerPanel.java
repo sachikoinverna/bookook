@@ -105,6 +105,8 @@ public class CrearProductoControllerPanel implements ActionListener {
                     JOptionPane.showMessageDialog(null, "Felicidades");
                     mainFrame.getCrearProductoPanel().cleanFields();
                     mainFrame.getVerProductosPanel().setLibroPanel(XMLManager.getAllLibros());
+                    mainFrame.closeWindow();
+                    mainFrame.showWindow();
                     mainFrame.getVerProductosPanel().revalidate();
                     mainFrame.getVerProductosPanel().repaint();
                 }

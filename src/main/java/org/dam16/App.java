@@ -4,6 +4,7 @@ import org.dam16.controllers.CrearProductoControllerPanel;
 import org.dam16.controllers.ImagePanelcontroller;
 import org.dam16.controllers.MainFrameController;
 import org.dam16.controllers.VerProductoPanelController;
+import org.dam16.models.AutorModel;
 import org.dam16.models.GeneroModel;
 import org.dam16.services.XMLService;
 import org.dam16.views.CrearProductoPanel;
@@ -11,6 +12,7 @@ import org.dam16.views.MainFrame;
 import org.dam16.views.VerProductosPanel;
 import org.dam16.xml.XMLManager;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 /**
@@ -22,18 +24,29 @@ public class  App
     public static void main( String[] args )
     {
         try {
-            if(XMLManager.getAllAutores()==null){
-                ArrayList <GeneroModel> generoModelArrayList = new ArrayList<>();
-                String[] generos = new String[]{"Novela", "Cuento", "Poesía",
-                        "Ensayo", "Drama","Ciencia ficción",
-                       "Fantasía","Realismo mágico","Terror",
-                        "Suspense","Romance","Aventura",
-                        "Biografía","Autobiografía","Crónica",
-                        "Sátira","Épica","Distopía",
-                        "Historia","Fábula"};
-                for (int i = 1; i < 21; i++) {
-                     generoModelArrayList.add(new GeneroModel(i,generos[i]));
+           if(XMLManager.getAllAutores()==null){
+                ArrayList <AutorModel> autorModelArrayList = new ArrayList<>();
+                String[] autores = new String[]{
+                "Gabriel García Márquez", "Jorge Luis Borges", "Jane Austen", "Virginia Woolf", "Haruki Murakami", "Franz Kafka", "William Faulkner", "Fyodor Dostoevsky", "Leo Tolstoy", "Suzzane Collins", "Isabel Allende", "Charles Dickens", "George Orwell", "Ernest Hemingway", "James Joyce", "Julio Cortázar", "J.K. Rowling", "Mark Twain", "Emily Brontë", "Aldous Huxley"};
+                for (int i = 0; i < 20; i++) {
+                     autorModelArrayList.add(new AutorModel(i+1,autores[i]));
                  }
+                boolean ok = XMLManager.crearAutores(autorModelArrayList);
+                if(ok){
+                    JOptionPane.showMessageDialog(null, "Autores creados");
+                }
+            }
+            if(XMLManager.getAllGeneros()==null){
+                ArrayList <GeneroModel> generoModelArrayList = new ArrayList<>();
+                String[] generos = new String[]{
+                "Novela","Cuento","Poesía","Ensayo","Drama","Ciencia ficción","Fantasía","Realismo mágico","Terror","Suspense","Romance","Aventura","Biografía","Autobiografía","Crónica","Sátira","Épica","Distopía","Historia","Fábula"};
+                for (int i = 0; i < 20; i++) {
+                    generoModelArrayList.add(new GeneroModel(i+1,generos[i]));
+                }
+                boolean ok = XMLManager.crearGeneros(generoModelArrayList);
+                if(ok){
+                    JOptionPane.showMessageDialog(null,"Generos creados");
+                }
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
