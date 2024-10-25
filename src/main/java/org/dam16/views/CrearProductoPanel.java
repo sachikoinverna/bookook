@@ -9,6 +9,7 @@ import org.dam16.xml.XMLManager;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.Date;
@@ -37,6 +38,7 @@ public class CrearProductoPanel extends JPanel {
     private JButton bt_crearEditar;
     private String errorMessage;
     private Image backgroundImage;
+    public boolean idExistente;
     public void again (){
         setImagePreviewPanel();
     }
@@ -86,6 +88,9 @@ public class CrearProductoPanel extends JPanel {
             throw new RuntimeException(e);
         }
         loadJListaSelected(new ArrayList<>());
+    }
+    public void setIdIncorrect(){
+        tx_id.setBorder(BorderFactory.createLineBorder(Color.red));
     }
     @Override
     public void paintComponent(Graphics g) {
@@ -141,11 +146,13 @@ public class CrearProductoPanel extends JPanel {
         bt_crearEditar.setActionCommand(CREATE_PRODUCT);
         bt_crearEditar.setText("Crear");
         tx_id.setEnabled(true);
+        cb_generos.setEnabled(false);
     }
     public void setEditMode(){
         bt_crearEditar.setActionCommand(EDIT_PRODUCT);
         bt_crearEditar.setText("Editar");
         tx_id.setEnabled(false);
+        cb_generos.setEnabled(true);
     }
     public void addListener(ActionListener listener){
         bt_autoresnotselected.addActionListener(listener);
@@ -153,6 +160,7 @@ public class CrearProductoPanel extends JPanel {
         bt_eliminarseleccion.addActionListener(listener);
         bt_seleccionartodos.addActionListener(listener);
         bt_crearEditar.addActionListener(listener);
+        tx_id.addFocusListener((FocusListener) listener);
     }
     public void setAutoresNotSelectedModel(DefaultListModel modelo){
         jl_autoresnotselected.setModel(modelo);
@@ -185,11 +193,16 @@ public class CrearProductoPanel extends JPanel {
         tx_id.setText("");
         tx_titulo.setText("");
         tx_numeroejemplares.setText("");
-        tx_precio.setText("");
-        dp_fechapublicacion.clear();
+        tx_numeroejemplares.setText(String.valueOf(1));
+        tx_precio.setText(String.valueOf(0));
+        dp_fechapublicacion.setDateToToday();
         cb_generos.setSelectedIndex(0);
+        cb_generos.setEnabled(false);
         ck_stock.setSelected(false);
         imagePanel.setDefaultImage();
+    }
+    public JTextField getTx_id() {
+        return tx_id;
     }
     private boolean checkFields(){
         if(!checkFieldsEmpty() || !checkFieldsValueIncorrect()) {
@@ -198,13 +211,17 @@ public class CrearProductoPanel extends JPanel {
         return true;
     }
     private boolean checkFieldsValueIncorrect(){
-        if(tx_precio.getText().equals("0")){
-                errorMessage="Los siguientes datos no pueden ser cero: \n";
-                if(tx_precio.getText().equals("0")){
-                    errorMessage+="✯Precio \n";
-                }
-                return false;
-            }
+        if(tx_precio.getText().equals("0") && checkFieldsEmpty()) {
+            errorMessage="Los siguientes datos no pueden ser cero: \n";
+            errorMessage+="✯Precio \n";
+            return false;
+        }else if(tx_precio.getText().equals("0") && !checkFieldsEmpty()){
+            errorMessage+="Los siguientes datos no pueden ser cero: \n";
+            errorMessage+="✯Precio \n";
+            return false;
+        }else if (!tx_precio.getText().equals("0") && !checkFieldsEmpty()){
+            return false;
+        }
         return true;
     }
     private boolean checkFieldsEmpty(){
@@ -229,6 +246,18 @@ public class CrearProductoPanel extends JPanel {
             if (dp_fechapublicacion.getDate()==null) {
                 errorMessage += "✯Fecha de publicacion \n";
             }
+            return false;
+        }
+        return true;
+    }
+    private boolean checkLength (){
+        if(tx_id.getText().length()>7 && !checkFieldsValueIncorrect()){
+            errorMessage="Los siguientes datos no pueden contener mas de 7 caracteres: \n";
+            errorMessage+="✯Id \n";
+            return false;
+        } else if (tx_precio.getText().length()>7 && checkFieldsValueIncorrect()) {
+            errorMessage+="Los siguientes datos no pueden contener mas de 7 caracteres: \n";
+            errorMessage+="✯Id \n";
             return false;
         }
         return true;
@@ -272,7 +301,7 @@ public class CrearProductoPanel extends JPanel {
         }
     }
     public LibroModel getLibroModel() {
-        if(!checkFields()){
+        if(!checkLength()){
             JOptionPane.showMessageDialog(mainPanel,errorMessage,"Error",JOptionPane.ERROR_MESSAGE);
         }
         else if(checkFields()) {

@@ -10,11 +10,13 @@ import org.dam16.xml.XMLManager;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.io.File;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-public class CrearProductoControllerPanel implements ActionListener {
+public class CrearProductoControllerPanel implements ActionListener, FocusListener {
     public static final String CREATE_PRODUCT = "CREATE_PRODUCT";
     public static final String EDIT_PRODUCT = "EDIT_PRODUCT";
     public static final String CHANGE_TO_JLNOTSELECTED = "CHANGE_TO_JLNOTSELECTED";
@@ -138,6 +140,24 @@ public class CrearProductoControllerPanel implements ActionListener {
                                 case SELECT_ALL:
                                     handlerAddAll();
                                     break;
+        }
+    }
+
+    @Override
+    public void focusGained(FocusEvent e) {
+
+    }
+
+    @Override
+    public void focusLost(FocusEvent e) {
+        JTextField tx_id = (JTextField) e.getSource();
+        if(!tx_id.isFocusOwner()){
+            if (XMLManager.getGeneroById(Integer.valueOf(tx_id.getText()))!=null){
+                crearProductoPanel.idExistente = false;
+                crearProductoPanel.setIdIncorrect();
+            } else if (XMLManager.getGeneroById(Integer.valueOf(tx_id.getText()))!=null) {
+
+            }
         }
     }
 }

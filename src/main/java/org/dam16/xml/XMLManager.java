@@ -184,8 +184,7 @@ public class XMLManager {
                             generoModel.setGenero(autorElement.getAttribute("nombre"));
                         }
                     }
-               //    return new LibroModel() =
-               //           new LibroModel(Integer.valueOf(element.getAttribute("id")),element.getAttribute("titulo"),autorModels,generoModel,Double.valueOf(element.getAttribute("precio")), element.getAttribute("publicacion"),Integer.valueOf(element.getAttribute("ejemplares")),Boolean.valueOf(element.getAttribute("stock")),element.getAttribute("imagen"));
+                   return new LibroModel(Integer.valueOf(element.getAttribute("id")),element.getAttribute("titulo"),autorModels,generoModel,Double.valueOf(element.getAttribute("precio")), Date.valueOf(element.getAttribute("publicacion")),Integer.valueOf(element.getAttribute("ejemplares")),Boolean.valueOf(element.getAttribute("stock")),element.getAttribute("imagen"));
                 }
             }
         }
