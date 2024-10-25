@@ -13,7 +13,6 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import static org.dam16.controllers.CrearProductoControllerPanel.*;
@@ -36,6 +35,8 @@ public class CrearProductoPanel extends JPanel {
     private JButton bt_eliminarseleccion;
     private JButton bt_seleccionartodos;
     private JButton bt_crearEditar;
+    private JButton bt_cancelar;
+    private JSlider sl_precio;
     private String errorMessage;
     private Image backgroundImage;
     public boolean idExistente;
@@ -58,14 +59,14 @@ public class CrearProductoPanel extends JPanel {
         );
         tx_numeroejemplares.addKeyListener(new KeyAdapter() {
            public void keyReleased(KeyEvent e) {
-               if(Character.isLetter(e.getKeyChar()) || Character.isSpaceChar(e.getKeyChar())){
+               if(Character.isLetter(e.getKeyChar()) || Character.isSpaceChar(e.getKeyChar())  && tx_numeroejemplares.getText().length()>0){
                    tx_numeroejemplares.setText(tx_numeroejemplares.getText().substring(0,tx_numeroejemplares.getText().length()-1));
                }
            }
         });
         tx_precio.addKeyListener(new KeyAdapter() {
             public void keyReleased(KeyEvent e) {
-                if(Character.isLetter(e.getKeyChar()) || Character.isSpaceChar(e.getKeyChar())){
+                if(Character.isLetter(e.getKeyChar()) || Character.isSpaceChar(e.getKeyChar())  && tx_precio.getText().length()>0){
                     tx_precio.setText(tx_precio.getText().substring(0,tx_precio.getText().length()-1));
                 }
             }
@@ -77,6 +78,7 @@ public class CrearProductoPanel extends JPanel {
                 }
             }
         });
+
         try {
             loadComboGeneros(XMLManager.getAllGeneros());
         } catch (Exception e) {
@@ -145,12 +147,14 @@ public class CrearProductoPanel extends JPanel {
     public void setCreateMode(){
         bt_crearEditar.setActionCommand(CREATE_PRODUCT);
         bt_crearEditar.setText("Crear");
+        bt_cancelar.setActionCommand(CANCELAR_CREATE);
         tx_id.setEnabled(true);
         cb_generos.setEnabled(false);
     }
     public void setEditMode(){
         bt_crearEditar.setActionCommand(EDIT_PRODUCT);
         bt_crearEditar.setText("Editar");
+        bt_cancelar.setActionCommand(CANCELAR_EDIT);
         tx_id.setEnabled(false);
         cb_generos.setEnabled(true);
     }
@@ -161,6 +165,7 @@ public class CrearProductoPanel extends JPanel {
         bt_seleccionartodos.addActionListener(listener);
         bt_crearEditar.addActionListener(listener);
         tx_id.addFocusListener((FocusListener) listener);
+        bt_cancelar.addActionListener(listener);
     }
     public void setAutoresNotSelectedModel(DefaultListModel modelo){
         jl_autoresnotselected.setModel(modelo);
@@ -193,22 +198,26 @@ public class CrearProductoPanel extends JPanel {
         tx_id.setText("");
         tx_titulo.setText("");
         tx_numeroejemplares.setText("");
-        tx_numeroejemplares.setText(String.valueOf(1));
         tx_precio.setText(String.valueOf(0));
         dp_fechapublicacion.setDateToToday();
         cb_generos.setSelectedIndex(0);
         cb_generos.setEnabled(false);
         ck_stock.setSelected(false);
         imagePanel.setDefaultImage();
+        tx_numeroejemplares.setText(String.valueOf(1));
+        tx_id.setBorder(tx_titulo.getBorder());
+    }
+    public JTextField getTx_titulo(){
+        return tx_titulo;
+    }
+    public JSlider getSl_precio() {
+        return sl_precio;
+    }
+    public JTextField getTx_precio(){
+        return tx_precio;
     }
     public JTextField getTx_id() {
         return tx_id;
-    }
-    private boolean checkFields(){
-        if(!checkFieldsEmpty() || !checkFieldsValueIncorrect()) {
-            return false;
-        }
-        return true;
     }
     private boolean checkFieldsValueIncorrect(){
         if(tx_precio.getText().equals("0") && checkFieldsEmpty()) {
@@ -259,6 +268,20 @@ public class CrearProductoPanel extends JPanel {
             errorMessage+="Los siguientes datos no pueden contener mas de 7 caracteres: \n";
             errorMessage+="✯Id \n";
             return false;
+        }else if(!checkFieldsValueIncorrect()){
+            return false;
+        }
+        return true;
+    }
+    private boolean checkFinal(){
+        if(idExistente && checkLength()) {
+            errorMessage="✯Id existente \n";
+            return false;
+        }else if(idExistente && !checkLength()){
+            errorMessage="✯Id existente \n";
+            return false;
+        } else if (!idExistente && !checkLength()) {
+            return false;
         }
         return true;
     }
@@ -301,15 +324,18 @@ public class CrearProductoPanel extends JPanel {
         }
     }
     public LibroModel getLibroModel() {
-        if(!checkLength()){
+        if(!checkFinal()){
             JOptionPane.showMessageDialog(mainPanel,errorMessage,"Error",JOptionPane.ERROR_MESSAGE);
         }
-        else if(checkFields()) {
+        else if(checkFinal()) {
             return new LibroModel(Integer.valueOf(tx_id.getText()), tx_titulo.getText(), getSelectedValues(), (GeneroModel) cb_generos.getSelectedItem(), Double.valueOf(tx_precio.getText()), Date.valueOf(dp_fechapublicacion.getDate()), Integer.valueOf(tx_numeroejemplares.getText()), ck_stock.isSelected());
         }
         return null;
     }
     public JPanel getMainPanel() {
         return mainPanel;
+    }
+    public JComboBox getCb_generos(){
+        return cb_generos;
     }
 }

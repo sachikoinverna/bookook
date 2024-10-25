@@ -21,6 +21,7 @@ public class EditarProductoDialog extends JDialog {
         setContentPane(mainPanel);
         pack();
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         mainFrame.getCrearProductoPanel().setEditMode();
         mainFrame.getCrearProductoPanel().setLibroModel(libroModel);
         mainPanel.setBackground(new Color(111,203,229));

@@ -8,6 +8,9 @@ import org.dam16.views.MainFrame;
 import org.dam16.xml.XMLManager;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -16,13 +19,15 @@ import java.io.File;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-public class CrearProductoControllerPanel implements ActionListener, FocusListener {
+public class CrearProductoControllerPanel implements ActionListener, FocusListener, ChangeListener {
     public static final String CREATE_PRODUCT = "CREATE_PRODUCT";
     public static final String EDIT_PRODUCT = "EDIT_PRODUCT";
     public static final String CHANGE_TO_JLNOTSELECTED = "CHANGE_TO_JLNOTSELECTED";
     public static final String CHANGE_TO_JLSELECTED = "CHANGE_TO_JLSELECTED";
     public static final String DELETE_SELECTION = "DELETE_SELECTION";
     public static final String SELECT_ALL = "SELECT_ALL";
+    public static final String CANCELAR_CREATE = "CANCELAR_CREATE";
+    public static final String CANCELAR_EDIT = "CANCELAR_EDIT";
     private final CrearProductoPanel crearProductoPanel;
     private final MainFrame mainFrame;
     public CrearProductoControllerPanel(MainFrame mainFrame) {
@@ -114,6 +119,19 @@ public class CrearProductoControllerPanel implements ActionListener, FocusListen
                 }
         }
     }
+    private void handlerCancelCreate(){
+        int opcion = JOptionPane.showConfirmDialog(null,"¿Deseas volver a la pantalla inicial?","Atencion",JOptionPane.YES_NO_OPTION);
+        if(opcion == JOptionPane.YES_OPTION){
+            mainFrame.navigate("inicioPanel");
+        }
+    }
+    private void handlerCancelEdit(){
+        int opcion = JOptionPane.showConfirmDialog(null,"¿Deseas salir del modo edicion?","Atencion",JOptionPane.YES_NO_OPTION);
+        if(opcion == JOptionPane.YES_OPTION){
+            mainFrame.closeWindow();
+            mainFrame.showWindow();
+        }
+    }
     @Override
     public void actionPerformed(ActionEvent e) {
         String action = e.getActionCommand();
@@ -140,6 +158,12 @@ public class CrearProductoControllerPanel implements ActionListener, FocusListen
                                 case SELECT_ALL:
                                     handlerAddAll();
                                     break;
+            case CANCELAR_CREATE:
+                handlerCancelCreate();
+                break;
+            case CANCELAR_EDIT:
+                handlerCancelEdit();
+                break;
         }
     }
 
@@ -152,12 +176,23 @@ public class CrearProductoControllerPanel implements ActionListener, FocusListen
     public void focusLost(FocusEvent e) {
         JTextField tx_id = (JTextField) e.getSource();
         if(!tx_id.isFocusOwner()){
-            if (XMLManager.getGeneroById(Integer.valueOf(tx_id.getText()))!=null){
-                crearProductoPanel.idExistente = false;
-                crearProductoPanel.setIdIncorrect();
-            } else if (XMLManager.getGeneroById(Integer.valueOf(tx_id.getText()))!=null) {
-
+            if(!tx_id.getText().isEmpty()) {
+                if (XMLManager.getLibroById(Integer.parseInt(tx_id.getText())) == null) {
+                    crearProductoPanel.idExistente = false;
+                    tx_id.setBorder(null);
+                    crearProductoPanel.getTx_id().setBorder(crearProductoPanel.getTx_titulo().getBorder());
+                    crearProductoPanel.getCb_generos().setEnabled(true);}
+                else if (XMLManager.getLibroById(Integer.parseInt(tx_id.getText())) != null) {
+                    crearProductoPanel.idExistente = true;
+                    crearProductoPanel.setIdIncorrect();
+                    crearProductoPanel.getCb_generos().setEnabled(false);
+                }
+                }
             }
         }
+
+    @Override
+    public void stateChanged(ChangeEvent e) {
+
     }
 }
