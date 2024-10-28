@@ -179,7 +179,6 @@ public class CrearProductoControllerPanel implements ActionListener, FocusListen
             if(!tx_id.getText().isEmpty()) {
                 if (XMLManager.getLibroById(Integer.parseInt(tx_id.getText())) == null) {
                     crearProductoPanel.idExistente = false;
-                    tx_id.setBorder(null);
                     crearProductoPanel.getTx_id().setBorder(crearProductoPanel.getTx_titulo().getBorder());
                     crearProductoPanel.getCb_generos().setEnabled(true);}
                 else if (XMLManager.getLibroById(Integer.parseInt(tx_id.getText())) != null) {

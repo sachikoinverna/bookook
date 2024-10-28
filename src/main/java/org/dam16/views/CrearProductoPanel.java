@@ -40,6 +40,8 @@ public class CrearProductoPanel extends JPanel {
     private String errorMessage;
     private Image backgroundImage;
     public boolean idExistente;
+    private boolean editMode;
+    private boolean createMode;
     public void again (){
         setImagePreviewPanel();
     }
@@ -51,7 +53,7 @@ public class CrearProductoPanel extends JPanel {
         tx_id.addKeyListener(new KeyAdapter() {
                                  @Override
                                  public void keyReleased(KeyEvent e) {
-                                     if((!Character.isDigit(e.getKeyChar()) || (tx_id.getText().equals("0") && tx_id.getText().length() ==1)) && tx_id.getText().length()>0){
+                                     if(( tx_id.getText().length()>7 ||!Character.isDigit(e.getKeyChar()) || (tx_id.getText().equals("0") && tx_id.getText().length() ==1)) && tx_id.getText().length()>0){
                                          tx_id.setText(tx_id.getText().substring(0,tx_id.getText().length()-1));
                                      }
                                  }
@@ -150,13 +152,18 @@ public class CrearProductoPanel extends JPanel {
         bt_cancelar.setActionCommand(CANCELAR_CREATE);
         tx_id.setEnabled(true);
         cb_generos.setEnabled(false);
+        createMode = true;
+        editMode = false;
     }
     public void setEditMode(){
         bt_crearEditar.setActionCommand(EDIT_PRODUCT);
         bt_crearEditar.setText("Editar");
         bt_cancelar.setActionCommand(CANCELAR_EDIT);
         tx_id.setEnabled(false);
+        tx_id.setBorder(tx_titulo.getBorder());
         cb_generos.setEnabled(true);
+        createMode = false;
+        editMode = true;
     }
     public void addListener(ActionListener listener){
         bt_autoresnotselected.addActionListener(listener);
@@ -260,11 +267,7 @@ public class CrearProductoPanel extends JPanel {
         return true;
     }
     private boolean checkLength (){
-        if(tx_id.getText().length()>7 && !checkFieldsValueIncorrect()){
-            errorMessage="Los siguientes datos no pueden contener mas de 7 caracteres: \n";
-            errorMessage+="✯Id \n";
-            return false;
-        } else if (tx_precio.getText().length()>7 && checkFieldsValueIncorrect()) {
+        if (tx_precio.getText().length()>7 && checkFieldsValueIncorrect()) {
             errorMessage+="Los siguientes datos no pueden contener mas de 7 caracteres: \n";
             errorMessage+="✯Id \n";
             return false;
@@ -274,13 +277,15 @@ public class CrearProductoPanel extends JPanel {
         return true;
     }
     private boolean checkFinal(){
-        if(idExistente && checkLength()) {
+        if(idExistente && checkLength() && createMode && !tx_id.getText().isEmpty()) {
             errorMessage="✯Id existente \n";
             return false;
-        }else if(idExistente && !checkLength()){
+        }else if(idExistente && !checkLength() && createMode && !tx_id.getText().isEmpty()) {
             errorMessage="✯Id existente \n";
             return false;
-        } else if (!idExistente && !checkLength()) {
+        } else if (!idExistente && !checkLength() && createMode && !tx_id.getText().isEmpty()) {
+            return false;
+        } else if (!checkLength() && editMode) {
             return false;
         }
         return true;
