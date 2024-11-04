@@ -183,7 +183,7 @@ public class XMLManager {
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Element element = (Element) nodeList.item(i);
                 if (element.getAttribute("id").equals(String.valueOf(id))) {
-                    NodeList autoresN = element.getElementsByTagName("autoresLibro");
+                    NodeList autoresN = element.getElementsByTagName("autorLibro");
                     NodeList nAutores = document.getElementsByTagName("autor");
                     for (int z = 0; z < autoresN.getLength(); z++) {
                         Element autor = (Element) autoresN.item(z);
