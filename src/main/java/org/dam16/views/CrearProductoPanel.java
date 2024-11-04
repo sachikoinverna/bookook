@@ -51,32 +51,35 @@ public class CrearProductoPanel extends JPanel {
         setImagePreviewPanel();
         setCommands();
         tx_id.addKeyListener(new KeyAdapter() {
-                                 @Override
-                                 public void keyReleased(KeyEvent e) {
-                                     if(( tx_id.getText().length()>7 ||!Character.isDigit(e.getKeyChar()) || (tx_id.getText().equals("0") && tx_id.getText().length() ==1)) && tx_id.getText().length()>0){
-                                         tx_id.setText(tx_id.getText().substring(0,tx_id.getText().length()-1));
+                            @Override
+                                 public void keyTyped(KeyEvent e) {
+                                     if(( tx_id.getText().length()>7 ||!Character.isDigit(e.getKeyChar()) || (tx_id.getText().equals("0") && tx_id.getText().length() ==1))){
+                                         e.consume();
                                      }
                                  }
                              }
         );
         tx_numeroejemplares.addKeyListener(new KeyAdapter() {
-           public void keyReleased(KeyEvent e) {
-               if(Character.isLetter(e.getKeyChar()) || Character.isSpaceChar(e.getKeyChar())  && tx_numeroejemplares.getText().length()>0){
-                   tx_numeroejemplares.setText(tx_numeroejemplares.getText().substring(0,tx_numeroejemplares.getText().length()-1));
+           public void keyTyped(KeyEvent e) {
+               if(Character.isLetter(e.getKeyChar()) || Character.isSpaceChar(e.getKeyChar())){
+                   e.consume();
                }
            }
         });
         tx_precio.addKeyListener(new KeyAdapter() {
-            public void keyReleased(KeyEvent e) {
-                if(Character.isLetter(e.getKeyChar()) || Character.isSpaceChar(e.getKeyChar())  && tx_precio.getText().length()>0){
+            public void keyTyped(KeyEvent e) {
+                if(Character.isLetter(e.getKeyChar()) || Character.isSpaceChar(e.getKeyChar())){
                     tx_precio.setText(tx_precio.getText().substring(0,tx_precio.getText().length()-1));
                 }
+                /*if(Character.isLetter(e.getKeyChar()) || (e.getKeyChar() != '\b')){
+                    tx_precio.setText(tx_precio.getText().substring(0,tx_precio.getText().length()-1));
+                }*/
             }
         });
         dp_fechapublicacion.addKeyListener(new KeyAdapter() {
-            public void keyReleased(KeyEvent e) {
+            public void keyTyped(KeyEvent e) {
                 if(Character.isLetter(e.getKeyChar()) || Character.isSpaceChar(e.getKeyChar())){
-                    dp_fechapublicacion.setText(dp_fechapublicacion.getText().substring(0,dp_fechapublicacion.getText().length()-1));
+                    e.consume();
                 }
             }
         });

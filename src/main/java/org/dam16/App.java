@@ -1,11 +1,9 @@
 package org.dam16;
 
-import org.dam16.controllers.CrearProductoControllerPanel;
-import org.dam16.controllers.ImagePanelcontroller;
-import org.dam16.controllers.MainFrameController;
-import org.dam16.controllers.VerProductoPanelController;
+import org.dam16.controllers.*;
 import org.dam16.models.AutorModel;
 import org.dam16.models.GeneroModel;
+import org.dam16.models.LibroModel;
 import org.dam16.services.XMLService;
 import org.dam16.views.CrearProductoPanel;
 import org.dam16.views.MainFrame;
@@ -51,7 +49,13 @@ public class  App
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        MainFrame frame = new MainFrame();
+        //
+        LibroModel libro = XMLManager.getLibroById(326);
+        if(libro!=null) {
+            JOptionPane.showMessageDialog(null, libro);
+        }
+        //
+                MainFrame frame = new MainFrame();
         MainFrameController mainFrameControllerontroller = new MainFrameController(frame);
         CrearProductoControllerPanel crearProductoControllerPanel = new CrearProductoControllerPanel(frame);
         ImagePanelcontroller imagePanelcontroller = new ImagePanelcontroller(frame.getCrearProductoPanel().getImagePreviewPanel());

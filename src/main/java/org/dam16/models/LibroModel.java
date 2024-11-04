@@ -105,4 +105,14 @@ public class LibroModel {
     public void setImagen(String imagen) {
         this.imagen = imagen;
     }
+    public String toStringAutores(){
+        String autoresS = "";
+        for (AutorModel autores: autor){
+            autoresS+=autor+"\n";
+        }
+        return autoresS;
+    }
+    public String toString(){
+        return String.valueOf(id)+"\n"+titulo+"\n"+toStringAutores()+"\n"+genero+"\n"+String.valueOf(precio)+"\n"+String.valueOf(fecha_publicacion)+"\n"+ejemplares+"\n"+String.valueOf(stock)+"\n"+imagen;
+    }
 }

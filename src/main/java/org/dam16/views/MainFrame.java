@@ -19,7 +19,7 @@ public class MainFrame extends JFrame implements InterfaceView{
     public MainFrame() {
         initWindow();
         addPanels();
-
+        setResizable(false);
     }
     private void addPanels() {
         navegador = (CardLayout) contenedorPaneles.getLayout();

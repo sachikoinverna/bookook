@@ -1,17 +1,25 @@
 package org.dam16.views;
 
+import com.github.lgooddatepicker.components.DatePicker;
 import org.dam16.controllers.LibroPanelController;
 import org.dam16.models.LibroModel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
+
+import static org.dam16.controllers.VerProductoPanelController.FILTRAR_FECHA;
 
 public class VerProductosPanel extends JPanel {
     private JPanel mainPanel;
     private JPanel booksListPanel;
     private JTextField tx_idLibro;
+    private DatePicker dp_fechaDede;
+    private DatePicker dp_fechaHasta;
+    private JComboBox cb_generoBuscar;
+    private JButton bt_filtrarFecha;
     private Image backgroundImage;
     private MainFrame mainFrame;
     public VerProductosPanel(MainFrame mainFrame) {
@@ -44,10 +52,23 @@ public class VerProductosPanel extends JPanel {
 
         }
     }
+    public DatePicker getDp_fechaDesde() {
+        return dp_fechaDede;
+    }
+    public DatePicker getDp_fechaHasta() {
+        return dp_fechaHasta;
+    }
+    public JTextField gettx_idLibro() {
+        return tx_idLibro;
+    }
+    private void initComponents() {
+        tx_idLibro.setName("idLibro");
+    }
     private void setCommands(){
-
+        bt_filtrarFecha.setActionCommand(FILTRAR_FECHA);
     }
     public void addListener(ActionListener listener) {
-
+        tx_idLibro.addKeyListener((KeyListener) listener);
+        bt_filtrarFecha.addActionListener(listener);
     }
 }
