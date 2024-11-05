@@ -49,13 +49,7 @@ public class  App
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        //
-        LibroModel libro = XMLManager.getLibroById(326);
-        if(libro!=null) {
-            JOptionPane.showMessageDialog(null, libro);
-        }
-        //
-                MainFrame frame = new MainFrame();
+        MainFrame frame = new MainFrame();
         MainFrameController mainFrameControllerontroller = new MainFrameController(frame);
         CrearProductoControllerPanel crearProductoControllerPanel = new CrearProductoControllerPanel(frame);
         ImagePanelcontroller imagePanelcontroller = new ImagePanelcontroller(frame.getCrearProductoPanel().getImagePreviewPanel());

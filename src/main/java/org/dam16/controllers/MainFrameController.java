@@ -43,6 +43,7 @@ public class MainFrameController implements ActionListener {
                         try {
                             if(XMLManager.getAllLibros()!=null) {
                                 mainFrame.getVerProductosPanel().setLibroPanel(XMLManager.getAllLibros());
+                                mainFrame.getVerProductosPanel().cleanFields();
                             }
                         } catch (ParseException ex) {
                             throw new RuntimeException(ex);

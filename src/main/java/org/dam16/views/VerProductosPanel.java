@@ -89,4 +89,10 @@ public class VerProductosPanel extends JPanel {
         cb_generoBuscar.setModel(modelo);
 
     }
+    public void cleanFields(){
+        tx_idLibro.setText("");
+        dp_fechaDede.setDate(null);
+        dp_fechaHasta.setDate(null);
+        cb_generoBuscar.setSelectedIndex(0);
+    }
 }

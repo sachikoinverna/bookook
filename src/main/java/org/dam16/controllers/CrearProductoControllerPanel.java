@@ -45,6 +45,7 @@ public class CrearProductoControllerPanel implements ActionListener, FocusListen
                 boolean okCrear = XMLManager.createLibro(libro);
                 if (okCrear) {
                     JOptionPane.showMessageDialog(null, "Felicidades");
+                    crearProductoPanel.cleanFields();
                 }
             }
 

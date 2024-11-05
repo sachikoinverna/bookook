@@ -28,13 +28,14 @@ public class VerProductoPanelController implements ActionListener, KeyListener, 
     }
     private void handlerFiltrarFecha(){
         try {
-            if(verProductosPanel.getDp_fechaDesde()!=null && verProductosPanel.getDp_fechaHasta()!=null) {
-                ArrayList<LibroModel> libros = XMLManager.getLibrosByFechaPublicacion(Date.valueOf(verProductosPanel.getDp_fechaDesde().getDate()),Date.valueOf(verProductosPanel.getDp_fechaHasta().getDate()));
+            if (!verProductosPanel.getDp_fechaDesde().getText().isEmpty() && verProductosPanel.getDp_fechaHasta().getText().isEmpty()) {
+                ArrayList<LibroModel> libros = XMLManager.getLibrosByFechaPublicacionDesde(Date.valueOf(verProductosPanel.getDp_fechaDesde().getDate()));
                 if (libros != null) {
                     verProductosPanel.setLibroPanel(libros);
                 }
-            } else if (verProductosPanel.getDp_fechaDesde()!=null && verProductosPanel.getDp_fechaHasta()==null) {
-                ArrayList<LibroModel> libros = XMLManager.getLibrosByFechaPublicacion(Date.valueOf(verProductosPanel.getDp_fechaDesde().getDate()),null);
+            }
+            else if(!verProductosPanel.getDp_fechaDesde().getText().isEmpty() && !verProductosPanel.getDp_fechaHasta().getText().isEmpty()) {
+                ArrayList<LibroModel> libros = XMLManager.getLibrosByFechaPublicacion(Date.valueOf(verProductosPanel.getDp_fechaDesde().getDate()),Date.valueOf(verProductosPanel.getDp_fechaHasta().getDate()));
                 if (libros != null) {
                     verProductosPanel.setLibroPanel(libros);
                 }
