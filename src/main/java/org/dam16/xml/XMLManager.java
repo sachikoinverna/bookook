@@ -536,7 +536,7 @@ public class XMLManager {
             ArrayList<AutorModel> autores = new ArrayList();
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Element element = (Element) nodeList.item(i);
-                if((Date.valueOf(element.getAttribute("publicacion")).after(fechaPublicacionHasta) || Date.valueOf(element.getAttribute("publicacion")).equals(fechaPublicacionHasta)) && (Date.valueOf(element.getAttribute("publicacion")).after(fechaPublicacionDesde) || Date.valueOf(element.getAttribute("publicacion")).equals(fechaPublicacionDesde))) {
+                if((Date.valueOf(element.getAttribute("publicacion")).before(fechaPublicacionHasta) || Date.valueOf(element.getAttribute("publicacion")).equals(fechaPublicacionHasta)) && (Date.valueOf(element.getAttribute("publicacion")).after(fechaPublicacionDesde) || Date.valueOf(element.getAttribute("publicacion")).equals(fechaPublicacionDesde))) {
                     NodeList autoresN = element.getElementsByTagName("autorLibro");
                     NodeList nAutores = document.getElementsByTagName("autor");
                     for (int z = 0; z < autoresN.getLength(); z++) {
