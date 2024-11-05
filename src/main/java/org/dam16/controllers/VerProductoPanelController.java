@@ -4,10 +4,7 @@ import org.dam16.models.LibroModel;
 import org.dam16.views.VerProductosPanel;
 import org.dam16.xml.XMLManager;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.sql.Date;
 
@@ -30,8 +27,13 @@ public class VerProductoPanelController implements ActionListener, KeyListener {
     }
     private void handlerFiltrarFecha(){
         try {
-            if(verProductosPanel.getDp_fechaDesde().getDate()!=null) {
+            if(verProductosPanel.getDp_fechaDesde()!=null && verProductosPanel.getDp_fechaHasta()!=null) {
                 ArrayList<LibroModel> libros = XMLManager.getLibrosByFechaPublicacion(Date.valueOf(verProductosPanel.getDp_fechaDesde().getDate()),Date.valueOf(verProductosPanel.getDp_fechaHasta().getDate()));
+                if (libros != null) {
+                    verProductosPanel.setLibroPanel(libros);
+                }
+            } else if (verProductosPanel.getDp_fechaDesde()!=null && verProductosPanel.getDp_fechaHasta()==null) {
+                ArrayList<LibroModel> libros = XMLManager.getLibrosByFechaPublicacion(Date.valueOf(verProductosPanel.getDp_fechaDesde().getDate()),null);
                 if (libros != null) {
                     verProductosPanel.setLibroPanel(libros);
                 }
@@ -52,21 +54,12 @@ public class VerProductoPanelController implements ActionListener, KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-        if(verProductosPanel.gettx_idLibro().isFocusOwner() && !verProductosPanel.gettx_idLibro().getText().isEmpty()){
+        /*if(verProductosPanel.gettx_idLibro().isFocusOwner() && !verProductosPanel.gettx_idLibro().getText().isEmpty()){
             if(!Character.isDigit(e.getKeyChar())){
                 e.consume();
-            }
-            try {
-                LibroModel libro = XMLManager.getLibroById(Integer.parseInt(verProductosPanel.gettx_idLibro().getText().toString()));
-                if (libro != null) {
-                    ArrayList<LibroModel> libroModels = new ArrayList<>();
-                    libroModels.add(libro);
-                    verProductosPanel.setLibroPanel(libroModels);
-                }
-            }catch (Exception ex){
-                ex.printStackTrace();
-            }
-        }
+            }*/
+
+        //}
     }
 
     @Override
@@ -76,6 +69,22 @@ public class VerProductoPanelController implements ActionListener, KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-
+            try {
+                ArrayList<LibroModel> libros = XMLManager.getLibrosByWords(verProductosPanel.gettx_idLibro().getText());
+                if (libros != null) {
+                    verProductosPanel.setLibroPanel(libros);
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+        }
+    }
+    private boolean checkNumbers(String cadena) {
+        char[] ch = cadena.toCharArray();
+        for (char c : ch) {
+            if (!Character.isDigit(c)) {
+                return false;
+            }
+        }
+        return true;
     }
 }

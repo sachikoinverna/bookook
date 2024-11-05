@@ -18,7 +18,7 @@
     <colspec value="left:225px:noGrow"/>
     <colspec value="left:225px:noGrow"/>
     <colspec value="fill:max(d;4px):noGrow"/>
-    <colspec value="left:550px:noGrow"/>
+    <colspec value="left:650px:noGrow"/>
     <colspec value="left:25px:noGrow"/>
     <colspec value="fill:max(d;4px):noGrow"/>
     <constraints>

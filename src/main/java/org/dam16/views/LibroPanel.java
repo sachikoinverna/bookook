@@ -4,8 +4,10 @@ import org.dam16.models.AutorModel;
 import org.dam16.models.LibroModel;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import static org.dam16.controllers.LibroPanelController.EDIT_PRODUCT;
 import static org.dam16.controllers.LibroPanelController.DELETE_PRODUCT;
@@ -21,8 +23,7 @@ public class LibroPanel extends JPanel {
     private JLabel lb_genero;
     private JLabel lb_publicacion;
     private JCheckBox cb_stock;
-    private JButton bt_editar;
-    private JButton bt_eliminar;
+    private JTable tb_datos;
     private LibroModel libro;
     public LibroPanel(LibroModel libro) {
         add(mainPanel);
@@ -40,14 +41,22 @@ public class LibroPanel extends JPanel {
     }
     public void setData(LibroModel libro) {
         setProductImage(libro.getImagen());
-        lb_id.setText(String.valueOf(libro.getId()));
+        String[][] datos= new String[][]{new String[]{String.valueOf(libro.getId()), String.valueOf(libro.getEjemplares()), String.valueOf(libro.getPrecio()), libro.getTitulo(), libro.getGenero().toString(), String.valueOf(libro.getFecha_publicacion()), String.valueOf(libro.isStock()), libro.toStringAutores()}};
+        DefaultTableModel tableModel = new DefaultTableModel(datos,new String[]{"Id","Ejemplares","Precio","Titulo","Genero","Fecha de publicacion","Stock","Autores"}) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        tb_datos.setModel(tableModel);
+        /*lb_id.setText(String.valueOf(libro.getId()));
         lb_ejemplares.setText(String.valueOf(libro.getEjemplares()));
         lb_precio.setText(String.valueOf(libro.getPrecio()));
         lb_titulo.setText(libro.getTitulo());
         lb_genero.setText(libro.getGenero().toString());
         lb_publicacion.setText(libro.getFecha_publicacion().toString());
         cb_stock.setSelected(libro.isStock());
-        loadListAutores(libro.getAutor());
+        loadListAutores(libro.getAutor());*/
     }
     private void loadListAutores(ArrayList<AutorModel> autores) {
         DefaultListModel modelo = new DefaultListModel();
@@ -57,11 +66,8 @@ public class LibroPanel extends JPanel {
         jl_escritores.setModel(modelo);
     }
     private void setCommands(){
-        bt_editar.setActionCommand(EDIT_PRODUCT);
-        bt_eliminar.setActionCommand(DELETE_PRODUCT);
     }
     public void addListeners(ActionListener listener){
-        bt_editar.addActionListener(listener);
-        bt_eliminar.addActionListener(listener);
+        tb_datos.addMouseListener((MouseListener) listener);
     }
 }

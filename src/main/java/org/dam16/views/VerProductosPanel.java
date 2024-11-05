@@ -2,7 +2,9 @@ package org.dam16.views;
 
 import com.github.lgooddatepicker.components.DatePicker;
 import org.dam16.controllers.LibroPanelController;
+import org.dam16.models.GeneroModel;
 import org.dam16.models.LibroModel;
+import org.dam16.xml.XMLManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,6 +30,11 @@ public class VerProductosPanel extends JPanel {
         mainPanel.setOpaque(false);
         setCommands();
         booksListPanel.setLayout(new BoxLayout(booksListPanel,BoxLayout.Y_AXIS));
+        try {
+            loadComboGeneros(XMLManager.getAllGeneros());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
     @Override
     public void paintComponent(Graphics g) {
@@ -70,5 +77,13 @@ public class VerProductosPanel extends JPanel {
     public void addListener(ActionListener listener) {
         tx_idLibro.addKeyListener((KeyListener) listener);
         bt_filtrarFecha.addActionListener(listener);
+    }
+    private void loadComboGeneros(ArrayList<GeneroModel> generos) {
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel();
+        for (GeneroModel genero : generos) {
+            modelo.addElement(genero);
+        }
+        cb_generoBuscar.setModel(modelo);
+
     }
 }

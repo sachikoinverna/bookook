@@ -2,7 +2,7 @@ package org.dam16.models;
 
 import java.util.ArrayList;
 import java.sql.Date;
-public class LibroModel {
+public class   LibroModel {
     private int id;
     private String titulo;
     private ArrayList<AutorModel> autor;
@@ -108,7 +108,7 @@ public class LibroModel {
     public String toStringAutores(){
         String autoresS = "";
         for (AutorModel autores: autor){
-            autoresS+=autor+"\n";
+            autoresS+=autores.name+"\n";
         }
         return autoresS;
     }

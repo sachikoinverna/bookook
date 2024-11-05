@@ -8,9 +8,11 @@ import org.dam16.xml.XMLManager;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.text.ParseException;
 
-public class LibroPanelController  implements ActionListener {
+public class LibroPanelController  implements ActionListener, MouseListener {
     private LibroPanel libroPanel;
     private MainFrame mainFrame;
     public static final String EDIT_PRODUCT = "EDIT_PRODUCT";
@@ -19,7 +21,7 @@ public class LibroPanelController  implements ActionListener {
         this.libroPanel = libroPanel;
         this.mainFrame = mainFrame;
     }
-    private void handlerEditProduct(){
+    private void handlerClicked(){
         int option = JOptionPane.showOptionDialog(libroPanel,"¿Que deseas hacer?","Libro",JOptionPane.DEFAULT_OPTION,JOptionPane.QUESTION_MESSAGE,null,new Object[]{"Editar","Borrar"},"Editar");
         if(option == 0) {
             EditarProductoDialog editarProductoDialog = new EditarProductoDialog(mainFrame, libroPanel.getLibro(), true);
@@ -43,19 +45,34 @@ public class LibroPanelController  implements ActionListener {
             }}
         }
     }
-    private void handlerDeleteProduct(){
-
-    }
     @Override
     public void actionPerformed(ActionEvent e) {
-        String action = e.getActionCommand();
-        switch (action) {
-            case EDIT_PRODUCT:
-                handlerEditProduct();
-                break;
-                case DELETE_PRODUCT:
-                    handlerDeleteProduct();
-                    break;
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if(e.getClickCount() == 2) {
+            handlerClicked();
         }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 }
