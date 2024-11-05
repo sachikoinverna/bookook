@@ -404,6 +404,7 @@ public class XMLManager {
                         if (generoElement.getAttribute("id").equals(element.getAttribute("generoLibro"))) {
                             generoModel.setIdGenero(Integer.parseInt(generoElement.getAttribute("id")));
                             generoModel.setGenero(generoElement.getAttribute("nombre"));
+                            break;
                         }
                     }
                             libros.add(new LibroModel(Integer.valueOf(element.getAttribute("id")), element.getAttribute("titulo"), autores, generoModel, Double.valueOf(element.getAttribute("precio")), Date.valueOf(element.getAttribute("publicacion")), Integer.valueOf(element.getAttribute("ejemplares")), Boolean.valueOf(element.getAttribute("stock")), element.getAttribute("imagen")));
@@ -555,6 +556,7 @@ public class XMLManager {
                         if (generoElement.getAttribute("id").equals(element.getAttribute("generoLibro"))) {
                             generoModel.setIdGenero(Integer.parseInt(generoElement.getAttribute("id")));
                             generoModel.setGenero(generoElement.getAttribute("nombre"));
+                            break;
                         }
                     }
                     libroModelArrayList.add(new LibroModel(Integer.valueOf(element.getAttribute("id")), element.getAttribute("titulo"), autores, generoModel, Double.valueOf(element.getAttribute("precio")), Date.valueOf(element.getAttribute("publicacion")), Integer.valueOf(element.getAttribute("ejemplares")), Boolean.valueOf(element.getAttribute("stock")), element.getAttribute("imagen")));
@@ -600,6 +602,7 @@ public class XMLManager {
                         if (generoElement.getAttribute("id").equals(element.getAttribute("generoLibro"))) {
                             generoModel.setIdGenero(Integer.parseInt(generoElement.getAttribute("id")));
                             generoModel.setGenero(generoElement.getAttribute("nombre"));
+                            break;
                         }
                     }
                     libroModelArrayList.add(new LibroModel(Integer.valueOf(element.getAttribute("id")), element.getAttribute("titulo"), autores, generoModel, Double.valueOf(element.getAttribute("precio")), Date.valueOf(element.getAttribute("publicacion")), Integer.valueOf(element.getAttribute("ejemplares")), Boolean.valueOf(element.getAttribute("stock")), element.getAttribute("imagen")));
