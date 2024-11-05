@@ -9,6 +9,7 @@ import org.dam16.xml.XMLManager;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
@@ -29,6 +30,7 @@ public class VerProductosPanel extends JPanel {
         add(mainPanel);
         mainPanel.setOpaque(false);
         setCommands();
+        cb_generoBuscar.setName("comboBusqueda");
         booksListPanel.setLayout(new BoxLayout(booksListPanel,BoxLayout.Y_AXIS));
         try {
             loadComboGeneros(XMLManager.getAllGeneros());
@@ -77,6 +79,7 @@ public class VerProductosPanel extends JPanel {
     public void addListener(ActionListener listener) {
         tx_idLibro.addKeyListener((KeyListener) listener);
         bt_filtrarFecha.addActionListener(listener);
+        cb_generoBuscar.addItemListener((ItemListener) listener);
     }
     private void loadComboGeneros(ArrayList<GeneroModel> generos) {
         DefaultComboBoxModel modelo = new DefaultComboBoxModel();

@@ -256,6 +256,15 @@ public class XMLManager {
         }
         return null;
     }
+    private static boolean checkNumbers(String cadena) {
+        char[] ch = cadena.toCharArray();
+        for (char c : ch) {
+            if (!Character.isDigit(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
     public static ArrayList<LibroModel> getLibrosByWords(String texto) {
         Document document = XMLService.loadOrCreateXML();
         if(document != null) {
@@ -263,8 +272,10 @@ public class XMLManager {
             ArrayList<LibroModel> librosId = new ArrayList();
             ArrayList<LibroModel> librosTitulo = new ArrayList();
             ArrayList<LibroModel> librosAutores = new ArrayList();
-            if(getLibroById(Integer.parseInt(texto)) != null) {
-                librosId.add(getLibroById(Integer.parseInt(texto)));
+            if(checkNumbers(texto)){
+                if(getLibroById(Integer.parseInt(texto)) != null) {
+                    librosId.add(getLibroById(Integer.parseInt(texto)));
+                }
             }
             if (getLibrosByAutores(texto) != null) {
                 librosAutores.addAll(getLibrosByAutores(texto));
@@ -273,10 +284,11 @@ public class XMLManager {
                 librosTitulo.addAll(getLibrosByTitulo(texto));
             }
             ArrayList<Integer> idLibros = new ArrayList();
-            for (LibroModel libroAutor :librosAutores) {
-                if (!idLibros.contains(libroAutor.getId())) {
-                idLibros.add(libroAutor.getId());}
-            }
+                for (LibroModel libroAutor : librosAutores) {
+                    if (!idLibros.contains(libroAutor.getId())) {
+                        idLibros.add(libroAutor.getId());
+                    }
+                }
             for (LibroModel libroTitulo :librosTitulo) {
                 if (!idLibros.contains(libroTitulo.getId())) {
                     idLibros.add(libroTitulo.getId());}
@@ -289,6 +301,21 @@ public class XMLManager {
             for (Integer id :idLibros) {
                 libros.add(getLibroById(id));
             }
+            return libros;
+        }
+        return null;
+    }
+    public static ArrayList<LibroModel> getLibrosByAdvancedFeatures(String genero, String texto){
+        Document document = XMLService.loadOrCreateXML();
+        if(document != null) {
+            ArrayList <LibroModel> oldLibroModelArrayList = getLibrosByWords(texto);
+            ArrayList<LibroModel> newLibroModelArrayList = new ArrayList<>();
+            for (LibroModel libro: oldLibroModelArrayList){
+                if (libro.getGenero().getGenero().equals(genero)){
+                    newLibroModelArrayList.add(libro);
+                }
+            }
+            return newLibroModelArrayList;
         }
         return null;
     }
@@ -307,6 +334,7 @@ public class XMLManager {
             NodeList nodeList = document.getElementsByTagName("libro");
             ArrayList<AutorModel> autores = new ArrayList();
             for (int i = 0; i < nodeList.getLength(); i++) {
+                autores.clear();
                 Element element = (Element) nodeList.item(i);
                 NodeList autoresN = element.getElementsByTagName("autorLibro");
                 NodeList nAutores = document.getElementsByTagName("autor");
@@ -326,6 +354,7 @@ public class XMLManager {
                     if (generoElement.getAttribute("id").equals(element.getAttribute("generoLibro"))) {
                         generoModel.setIdGenero(Integer.parseInt(generoElement.getAttribute("id")));
                         generoModel.setGenero(generoElement.getAttribute("nombre"));
+                        break;
                     }
                 }
                 for (AutorModel autor : autores) {
@@ -354,6 +383,7 @@ public class XMLManager {
             NodeList nodeList = document.getElementsByTagName("libro");
             ArrayList<AutorModel> autores = new ArrayList();
             for (int i = 0; i < nodeList.getLength(); i++) {
+                autores.clear();
                 Element element = (Element) nodeList.item(i);
                 if(element.getAttribute("titulo").toLowerCase().contains(titulo.toLowerCase())) {
                     NodeList autoresN = element.getElementsByTagName("autorLibro");
@@ -507,53 +537,53 @@ public class XMLManager {
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Element element = (Element) nodeList.item(i);
                 if(fechaPublicacionDesde!=null && (Date.valueOf(element.getAttribute("publicacion")).after(fechaPublicacionDesde) || Date.valueOf(element.getAttribute("publicacion")).equals(fechaPublicacionDesde))) {
-                        NodeList autoresN = element.getElementsByTagName("autoresLibro");
-                        NodeList nAutores = document.getElementsByTagName("autor");
-                        for (int z = 0; z < autoresN.getLength(); z++) {
-                            Element autor = (Element) autoresN.item(z);
-                            for (int j = 0; j < nAutores.getLength(); j++) {
-                                Element autorLibro = (Element) nAutores.item(j);
-                                if (autor.getAttribute("id").equals(autorLibro.getAttribute("id"))) {
-                                    autores.add(new AutorModel((Integer.parseInt(autorLibro.getAttribute("id"))), autorLibro.getAttribute("nombre")));
-                                }
+                    NodeList autoresN = element.getElementsByTagName("autorLibro");
+                    NodeList nAutores = document.getElementsByTagName("autor");
+                    for (int z = 0; z < autoresN.getLength(); z++) {
+                        Element autor = (Element) autoresN.item(z);
+                        for (int j = 0; j < nAutores.getLength(); j++) {
+                            Element autorLibro = (Element) nAutores.item(j);
+                            if(autorLibro.getAttribute("id").equals(autor.getAttribute("id"))) {
+                                autores.add(new AutorModel((Integer.parseInt(autorLibro.getAttribute("id"))), autorLibro.getAttribute("nombre")));
                             }
                         }
-                        NodeList nodeL = element.getElementsByTagName("generos");
-                        GeneroModel generoModel = new GeneroModel();
-                        for (int x = 0; x < nodeL.getLength(); x++) {
-                            Element generoElement = (Element) nodeL.item(x);
-                            if (generoElement.getAttribute("id").equals(element.getAttribute("genero"))) {
-                                generoModel.setIdGenero(Integer.parseInt(generoElement.getAttribute("id")));
-                                generoModel.setGenero(generoElement.getAttribute("nombre"));
-                            }
+                    }
+                    NodeList nodeL = element.getElementsByTagName("generos");
+                    GeneroModel generoModel = new GeneroModel();
+                    for (int x = 0; x < nodeL.getLength(); x++) {
+                        Element generoElement = (Element) nodeL.item(x);
+                        if (generoElement.getAttribute("id").equals(element.getAttribute("genero"))) {
+                            generoModel.setIdGenero(Integer.parseInt(generoElement.getAttribute("id")));
+                            generoModel.setGenero(generoElement.getAttribute("nombre"));
                         }
-                        libroModelArrayList.add(new LibroModel(Integer.valueOf(element.getAttribute("id")), element.getAttribute("titulo"), autores, generoModel, Double.valueOf(element.getAttribute("precio")), Date.valueOf(element.getAttribute("publicacion")), Integer.valueOf(element.getAttribute("ejemplares")), Boolean.valueOf(element.getAttribute("stock")), element.getAttribute("imagen")));
+                    }
+                    libroModelArrayList.add(new LibroModel(Integer.valueOf(element.getAttribute("id")), element.getAttribute("titulo"), autores, generoModel, Double.valueOf(element.getAttribute("precio")), Date.valueOf(element.getAttribute("publicacion")), Integer.valueOf(element.getAttribute("ejemplares")), Boolean.valueOf(element.getAttribute("stock")), element.getAttribute("imagen")));
 
-                    }
-                if (fechaPublicacionHasta!=null & (Date.valueOf(element.getAttribute("publicacion")).after(fechaPublicacionHasta) || Date.valueOf(element.getAttribute("publicacion")).equals(fechaPublicacionHasta))) {
-                        NodeList autoresN = element.getElementsByTagName("autoresLibro");
-                        NodeList nAutores = document.getElementsByTagName("autor");
-                        for (int z = 0; z < autoresN.getLength(); z++) {
-                            Element autor = (Element) autoresN.item(z);
-                            for (int j = 0; j < nAutores.getLength(); j++) {
-                                Element autorLibro = (Element) nAutores.item(j);
-                                if (autor.getAttribute("id").equals(autorLibro.getAttribute("id"))) {
-                                    autores.add(new AutorModel((Integer.parseInt(autorLibro.getAttribute("id"))), autorLibro.getAttribute("nombre")));
-                                }
-                            }
-                        }
-                        NodeList nodeL = element.getElementsByTagName("generos");
-                        GeneroModel generoModel = new GeneroModel();
-                        for (int x = 0; x < nodeL.getLength(); x++) {
-                            Element generoElement = (Element) nodeL.item(x);
-                            if (generoElement.getAttribute("id").equals(element.getAttribute("genero"))) {
-                                generoModel.setIdGenero(Integer.parseInt(generoElement.getAttribute("id")));
-                                generoModel.setGenero(generoElement.getAttribute("nombre"));
-                            }
-                        }
-                        libroModelArrayList.add(new LibroModel(Integer.valueOf(element.getAttribute("id")), element.getAttribute("titulo"), autores, generoModel, Double.valueOf(element.getAttribute("precio")), Date.valueOf(element.getAttribute("publicacion")), Integer.valueOf(element.getAttribute("ejemplares")), Boolean.valueOf(element.getAttribute("stock")), element.getAttribute("imagen")));
-                    }
                 }
+                if (fechaPublicacionHasta!=null & (Date.valueOf(element.getAttribute("publicacion")).after(fechaPublicacionHasta) || Date.valueOf(element.getAttribute("publicacion")).equals(fechaPublicacionHasta))) {
+                    NodeList autoresN = element.getElementsByTagName("autorLibro");
+                    NodeList nAutores = document.getElementsByTagName("autor");
+                    for (int z = 0; z < autoresN.getLength(); z++) {
+                        Element autor = (Element) autoresN.item(z);
+                        for (int j = 0; j < nAutores.getLength(); j++) {
+                            Element autorLibro = (Element) nAutores.item(j);
+                            if (autor.getAttribute("id").equals(autorLibro.getAttribute("id"))) {
+                                autores.add(new AutorModel((Integer.parseInt(autorLibro.getAttribute("id"))), autorLibro.getAttribute("nombre")));
+                            }
+                        }
+                    }
+                    NodeList nodeL = element.getElementsByTagName("generos");
+                    GeneroModel generoModel = new GeneroModel();
+                    for (int x = 0; x < nodeL.getLength(); x++) {
+                        Element generoElement = (Element) nodeL.item(x);
+                        if (generoElement.getAttribute("id").equals(element.getAttribute("genero"))) {
+                            generoModel.setIdGenero(Integer.parseInt(generoElement.getAttribute("id")));
+                            generoModel.setGenero(generoElement.getAttribute("nombre"));
+                        }
+                    }
+                    libroModelArrayList.add(new LibroModel(Integer.valueOf(element.getAttribute("id")), element.getAttribute("titulo"), autores, generoModel, Double.valueOf(element.getAttribute("precio")), Date.valueOf(element.getAttribute("publicacion")), Integer.valueOf(element.getAttribute("ejemplares")), Boolean.valueOf(element.getAttribute("stock")), element.getAttribute("imagen")));
+                }
+            }
             return libroModelArrayList;
         }
         return null;

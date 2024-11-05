@@ -2,23 +2,21 @@
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="org.dam16.views.VerProductosPanel">
   <grid id="27dc6" binding="mainPanel" layout-manager="FormLayout">
     <rowspec value="center:d:noGrow"/>
-    <rowspec value="top:21px:noGrow"/>
-    <rowspec value="center:20px:noGrow"/>
-    <rowspec value="top:22px:noGrow"/>
-    <rowspec value="top:20px:noGrow"/>
-    <rowspec value="top:20px:noGrow"/>
-    <rowspec value="top:20px:noGrow"/>
-    <rowspec value="top:21px:noGrow"/>
-    <rowspec value="center:20px:noGrow"/>
-    <rowspec value="center:max(d;4px):noGrow"/>
-    <rowspec value="center:max(d;4px):noGrow"/>
-    <rowspec value="center:max(d;4px):noGrow"/>
-    <rowspec value="center:max(d;4px):noGrow"/>
+    <rowspec value="top:25px:noGrow"/>
+    <rowspec value="center:25px:noGrow"/>
+    <rowspec value="top:25px:noGrow"/>
+    <rowspec value="top:25px:noGrow"/>
+    <rowspec value="top:25px:noGrow"/>
+    <rowspec value="top:51px:noGrow"/>
+    <rowspec value="top:25px:noGrow"/>
+    <rowspec value="center:25px:noGrow"/>
+    <rowspec value="center:403px:noGrow"/>
+    <rowspec value="center:75px:noGrow"/>
     <colspec value="fill:25px:noGrow"/>
-    <colspec value="left:225px:noGrow"/>
-    <colspec value="left:225px:noGrow"/>
+    <colspec value="left:180px:noGrow"/>
+    <colspec value="left:220px:noGrow"/>
     <colspec value="fill:max(d;4px):noGrow"/>
-    <colspec value="left:650px:noGrow"/>
+    <colspec value="left:700px:noGrow"/>
     <colspec value="left:25px:noGrow"/>
     <colspec value="fill:max(d;4px):noGrow"/>
     <constraints>
@@ -33,20 +31,20 @@
     <children>
       <vspacer id="c4610">
         <constraints>
-          <grid row="0" column="5" row-span="13" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="5" row-span="11" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
           <forms defaultalign-vert="false"/>
         </constraints>
       </vspacer>
       <vspacer id="d203">
         <constraints>
-          <grid row="0" column="0" row-span="13" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="0" row-span="11" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
           <forms defaultalign-vert="false"/>
         </constraints>
       </vspacer>
       <scrollpane id="69146">
         <constraints>
-          <grid row="0" column="4" row-span="13" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-          <forms defaultalign-horz="false" defaultalign-vert="false"/>
+          <grid row="0" column="4" row-span="11" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <forms top="10" left="10" bottom="10" right="10" defaultalign-horz="false" defaultalign-vert="false"/>
         </constraints>
         <properties/>
         <border type="none"/>
@@ -63,10 +61,10 @@
       </scrollpane>
       <component id="1dae8" class="javax.swing.JTextField" binding="tx_idLibro">
         <constraints>
-          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+          <grid row="2" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
           </grid>
-          <forms defaultalign-horz="false"/>
+          <forms top="0" left="10" bottom="0" right="10" defaultalign-horz="false"/>
         </constraints>
         <properties>
           <toolTipText value=""/>
@@ -74,11 +72,11 @@
       </component>
       <component id="a39cd" class="javax.swing.JLabel">
         <constraints>
-          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
           <forms defaultalign-horz="false" defaultalign-vert="false"/>
         </constraints>
         <properties>
-          <text value="Id libro"/>
+          <text value="Codigo/Autor/Titulo"/>
         </properties>
       </component>
       <component id="72375" class="javax.swing.JLabel">
@@ -92,8 +90,8 @@
       </component>
       <component id="57cb" class="javax.swing.JLabel">
         <constraints>
-          <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-          <forms/>
+          <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false" defaultalign-vert="false"/>
         </constraints>
         <properties>
           <text value="Desde:"/>
@@ -102,21 +100,21 @@
       <component id="1892" class="com.github.lgooddatepicker.components.DatePicker" binding="dp_fechaDede">
         <constraints>
           <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-          <forms/>
+          <forms top="0" left="10" bottom="0" right="10"/>
         </constraints>
         <properties/>
       </component>
       <component id="3867b" class="com.github.lgooddatepicker.components.DatePicker" binding="dp_fechaHasta">
         <constraints>
           <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-          <forms/>
+          <forms top="0" left="10" bottom="0" right="10"/>
         </constraints>
         <properties/>
       </component>
       <component id="89205" class="javax.swing.JLabel">
         <constraints>
-          <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-          <forms/>
+          <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false" defaultalign-vert="false"/>
         </constraints>
         <properties>
           <text value="Hasta:"/>
@@ -134,14 +132,14 @@
       <component id="ed0ac" class="javax.swing.JComboBox" binding="cb_generoBuscar">
         <constraints>
           <grid row="8" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-          <forms/>
+          <forms top="0" left="10" bottom="0" right="10"/>
         </constraints>
         <properties/>
       </component>
       <component id="c21a0" class="javax.swing.JButton" binding="bt_filtrarFecha">
         <constraints>
           <grid row="6" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-          <forms defaultalign-horz="false" defaultalign-vert="false"/>
+          <forms top="10" left="0" bottom="10" right="0" defaultalign-horz="false" defaultalign-vert="false"/>
         </constraints>
         <properties>
           <text value="Buscar"/>

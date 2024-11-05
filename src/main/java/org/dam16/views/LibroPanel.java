@@ -9,8 +9,6 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import static org.dam16.controllers.LibroPanelController.EDIT_PRODUCT;
-import static org.dam16.controllers.LibroPanelController.DELETE_PRODUCT;
 
 public class LibroPanel extends JPanel {
     private JPanel mainPanel;
@@ -24,6 +22,7 @@ public class LibroPanel extends JPanel {
     private JLabel lb_publicacion;
     private JCheckBox cb_stock;
     private JTable tb_datos;
+    private JList l_autores;
     private LibroModel libro;
     public LibroPanel(LibroModel libro) {
         add(mainPanel);
@@ -41,8 +40,8 @@ public class LibroPanel extends JPanel {
     }
     public void setData(LibroModel libro) {
         setProductImage(libro.getImagen());
-        String[][] datos= new String[][]{new String[]{String.valueOf(libro.getId()), String.valueOf(libro.getEjemplares()), String.valueOf(libro.getPrecio()), libro.getTitulo(), libro.getGenero().toString(), String.valueOf(libro.getFecha_publicacion()), String.valueOf(libro.isStock()), libro.toStringAutores()}};
-        DefaultTableModel tableModel = new DefaultTableModel(datos,new String[]{"Id","Ejemplares","Precio","Titulo","Genero","Fecha de publicacion","Stock","Autores"}) {
+        String[][] datos= new String[][]{new String[]{String.valueOf(libro.getId()), String.valueOf(libro.getEjemplares()), String.valueOf(libro.getPrecio()), libro.getTitulo(), libro.getGenero().toString(), String.valueOf(libro.getFecha_publicacion()), String.valueOf(libro.isStock())}};
+        DefaultTableModel tableModel = new DefaultTableModel(datos,new String[]{"Id","Ejemplares","Precio","Titulo","Genero","Fecha de publicacion","Stock"}) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
@@ -55,15 +54,15 @@ public class LibroPanel extends JPanel {
         lb_titulo.setText(libro.getTitulo());
         lb_genero.setText(libro.getGenero().toString());
         lb_publicacion.setText(libro.getFecha_publicacion().toString());
-        cb_stock.setSelected(libro.isStock());
-        loadListAutores(libro.getAutor());*/
+        cb_stock.setSelected(libro.isStock());*/
+        loadListAutores(libro.getAutor());
     }
     private void loadListAutores(ArrayList<AutorModel> autores) {
         DefaultListModel modelo = new DefaultListModel();
         for (AutorModel autor : autores) {
             modelo.addElement(autor);
         }
-        jl_escritores.setModel(modelo);
+        l_autores.setModel(modelo);
     }
     private void setCommands(){
     }

@@ -4,11 +4,12 @@ import org.dam16.models.LibroModel;
 import org.dam16.views.VerProductosPanel;
 import org.dam16.xml.XMLManager;
 
+import javax.swing.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.sql.Date;
 
-public class VerProductoPanelController implements ActionListener, KeyListener {
+public class VerProductoPanelController implements ActionListener, KeyListener, ItemListener {
     private final VerProductosPanel verProductosPanel;
     public static final String FILTRAR_FECHA = "FILTRAR_FECHA";
     public VerProductoPanelController(VerProductosPanel verProductosPanel) {
@@ -69,6 +70,7 @@ public class VerProductoPanelController implements ActionListener, KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
+        if(!verProductosPanel.gettx_idLibro().getText().isEmpty()) {
             try {
                 ArrayList<LibroModel> libros = XMLManager.getLibrosByWords(verProductosPanel.gettx_idLibro().getText());
                 if (libros != null) {
@@ -76,6 +78,7 @@ public class VerProductoPanelController implements ActionListener, KeyListener {
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
+            }
         }
     }
     private boolean checkNumbers(String cadena) {
@@ -86,5 +89,23 @@ public class VerProductoPanelController implements ActionListener, KeyListener {
             }
         }
         return true;
+    }
+
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+        JComboBox jComboBox = (JComboBox) e.getSource();
+        if(e.getStateChange() == ItemEvent.SELECTED){
+                if (jComboBox.getName().equals("comboBusqueda")) {
+                    JComboBox comboBusqueda = (JComboBox) e.getSource();
+                    try {
+                        ArrayList<LibroModel> libros = XMLManager.getLibrosByAdvancedFeatures(comboBusqueda.getSelectedItem().toString(), verProductosPanel.gettx_idLibro().getText());
+                        if (libros != null) {
+                            verProductosPanel.setLibroPanel(libros);
+                        }
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
     }
 }
