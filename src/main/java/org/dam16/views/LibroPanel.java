@@ -48,13 +48,6 @@ public class LibroPanel extends JPanel {
             }
         };
         tb_datos.setModel(tableModel);
-        /*lb_id.setText(String.valueOf(libro.getId()));
-        lb_ejemplares.setText(String.valueOf(libro.getEjemplares()));
-        lb_precio.setText(String.valueOf(libro.getPrecio()));
-        lb_titulo.setText(libro.getTitulo());
-        lb_genero.setText(libro.getGenero().toString());
-        lb_publicacion.setText(libro.getFecha_publicacion().toString());
-        cb_stock.setSelected(libro.isStock());*/
         loadListAutores(libro.getAutor());
     }
     private void loadListAutores(ArrayList<AutorModel> autores) {

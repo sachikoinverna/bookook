@@ -6,6 +6,7 @@ import org.dam16.xml.XMLManager;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.sql.Date;
 
@@ -28,14 +29,28 @@ public class VerProductoPanelController implements ActionListener, KeyListener, 
     }
     private void handlerFiltrarFecha(){
         try {
-            if (!verProductosPanel.getDp_fechaDesde().getText().isEmpty() && verProductosPanel.getDp_fechaHasta().getText().isEmpty()) {
+            if(!verProductosPanel.getDp_fechaDesde().getText().isEmpty() && verProductosPanel.getDp_fechaDesde().getDate().isAfter(LocalDate.now())) {
+                JOptionPane.showMessageDialog(null,"La fecha no puede ser posterior a hoy.");
+            }
+            else if(!verProductosPanel.getDp_fechaHasta().getText().isEmpty() && verProductosPanel.getDp_fechaHasta().getDate().isAfter(LocalDate.now())) {
+                JOptionPane.showMessageDialog(null,"La fecha no puede ser posterior a hoy.");
+            }
+            else if(!verProductosPanel.getDp_fechaDesde().getText().isEmpty() && !verProductosPanel.getDp_fechaHasta().getText().isEmpty() && (verProductosPanel.getDp_fechaDesde().getDate().isAfter(verProductosPanel.getDp_fechaHasta().getDate()) || verProductosPanel.getDp_fechaDesde().getDate().isEqual(verProductosPanel.getDp_fechaHasta().getDate()))) {
+                JOptionPane.showMessageDialog(null,"El campo hasta debe ser posterior al campo desde.");
+            }
+            else if (!verProductosPanel.getDp_fechaDesde().getText().isEmpty() && verProductosPanel.getDp_fechaHasta().getText().isEmpty()) {
                 ArrayList<LibroModel> libros = XMLManager.getLibrosByFechaPublicacionDesde(Date.valueOf(verProductosPanel.getDp_fechaDesde().getDate()));
                 if (libros != null) {
                     verProductosPanel.setLibroPanel(libros);
                 }
             }
-            else if(!verProductosPanel.getDp_fechaDesde().getText().isEmpty() && !verProductosPanel.getDp_fechaHasta().getText().isEmpty()) {
+            else if(!verProductosPanel.getDp_fechaDesde().getText().isEmpty() && !verProductosPanel.getDp_fechaHasta().getText().isEmpty() && verProductosPanel.getDp_fechaDesde().getDate().isBefore(verProductosPanel.getDp_fechaHasta().getDate())) {
                 ArrayList<LibroModel> libros = XMLManager.getLibrosByFechaPublicacion(Date.valueOf(verProductosPanel.getDp_fechaDesde().getDate()),Date.valueOf(verProductosPanel.getDp_fechaHasta().getDate()));
+                if (libros != null) {
+                    verProductosPanel.setLibroPanel(libros);
+                }
+            }else if (verProductosPanel.getDp_fechaDesde().getText().isEmpty() && !verProductosPanel.getDp_fechaHasta().getText().isEmpty()) {
+                ArrayList<LibroModel> libros = XMLManager.getLibrosByFechaPublicacionHasta(Date.valueOf(verProductosPanel.getDp_fechaHasta().getDate()));
                 if (libros != null) {
                     verProductosPanel.setLibroPanel(libros);
                 }
@@ -74,6 +89,15 @@ public class VerProductoPanelController implements ActionListener, KeyListener, 
         if(!verProductosPanel.gettx_idLibro().getText().isEmpty()) {
             try {
                 ArrayList<LibroModel> libros = XMLManager.getLibrosByWords(verProductosPanel.gettx_idLibro().getText());
+                if (libros != null) {
+                    verProductosPanel.setLibroPanel(libros);
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        } else if (verProductosPanel.gettx_idLibro().getText().isEmpty()) {
+            try {
+                ArrayList<LibroModel> libros = XMLManager.getAllLibros();
                 if (libros != null) {
                     verProductosPanel.setLibroPanel(libros);
                 }

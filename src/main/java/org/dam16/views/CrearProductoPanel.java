@@ -1,6 +1,7 @@
 package org.dam16.views;
 
 import com.github.lgooddatepicker.components.DatePicker;
+import com.github.lgooddatepicker.components.DatePickerSettings;
 import org.dam16.models.AutorModel;
 import org.dam16.models.GeneroModel;
 import org.dam16.models.LibroModel;
@@ -13,6 +14,7 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import static org.dam16.controllers.CrearProductoControllerPanel.*;
@@ -95,6 +97,7 @@ public class CrearProductoPanel extends JPanel {
             throw new RuntimeException(e);
         }
         loadJListaSelected(new ArrayList<>());
+
     }
     public void setIdIncorrect(){
         tx_id.setBorder(BorderFactory.createLineBorder(Color.red));
@@ -209,13 +212,14 @@ public class CrearProductoPanel extends JPanel {
         tx_titulo.setText("");
         tx_numeroejemplares.setText("");
         tx_precio.setText(String.valueOf(0));
-        dp_fechapublicacion.setDateToToday();
+        dp_fechapublicacion.setDate(null);
         cb_generos.setSelectedIndex(0);
         cb_generos.setEnabled(false);
         ck_stock.setSelected(false);
         imagePanel.setDefaultImage();
         tx_numeroejemplares.setText(String.valueOf(1));
         tx_id.setBorder(tx_titulo.getBorder());
+
     }
     public JTextField getTx_titulo(){
         return tx_titulo;
@@ -229,24 +233,43 @@ public class CrearProductoPanel extends JPanel {
     public JTextField getTx_id() {
         return tx_id;
     }
-    private boolean checkFieldsValueIncorrect(){
+    private boolean checkFieldsValueIncorrecT(){
         if(tx_precio.getText().equals("0") && checkFieldsEmpty()) {
-            errorMessage="Los siguientes datos no pueden ser cero: \n";
+            errorMessage="★Los siguientes datos no pueden ser cero: \n";
             errorMessage+="✯Precio \n";
             return false;
         }else if(tx_precio.getText().equals("0") && !checkFieldsEmpty()){
-            errorMessage+="Los siguientes datos no pueden ser cero: \n";
+            errorMessage+="★Los siguientes datos no pueden ser cero: \n";
             errorMessage+="✯Precio \n";
             return false;
-        }else if (!tx_precio.getText().equals("0") && !checkFieldsEmpty()){
+        }
+        else if (!tx_precio.getText().equals("0") && !checkFieldsEmpty()){
             return false;
+        }
+        return true;
+    }
+    private boolean checkFieldsValueIncorrect(){
+        if(!dp_fechapublicacion.getText().isEmpty()) {
+            if (checkFieldsValueIncorrecT() && dp_fechapublicacion.getDate().isAfter(LocalDate.now())) {
+                errorMessage = "★La fecha no puede ser posterior a hoy\n";
+                return false;
+            } else if (!checkFieldsValueIncorrecT() && dp_fechapublicacion.getDate().isAfter(LocalDate.now())) {
+                errorMessage += "★La fecha no puede ser posterior a hoy\n";
+                return false;
+            } else if (!dp_fechapublicacion.getDate().isAfter(LocalDate.now()) && !checkFieldsValueIncorrecT()) {
+                return false;
+            }
+        } else if (dp_fechapublicacion.getText().isEmpty()) {
+            if(!checkFieldsValueIncorrecT()){
+                return false;
+            }
         }
         return true;
     }
     private boolean checkFieldsEmpty(){
 
-        if(tx_id.getText().isEmpty() || tx_titulo.getText().isEmpty() || tx_precio.getText().isEmpty() || tx_numeroejemplares.getText().isEmpty() || getAutoresSelected().isEmpty() || dp_fechapublicacion.getDate()==null) {
-            errorMessage="Faltan los siguientes datos: \n";
+        if(tx_id.getText().isEmpty() || tx_titulo.getText().isEmpty() || tx_precio.getText().isEmpty() || tx_numeroejemplares.getText().isEmpty() || getAutoresSelected().isEmpty() || dp_fechapublicacion.getText().isEmpty()) {
+            errorMessage="★Faltan los siguientes datos: \n";
             if (tx_id.getText().isEmpty()) {
                 errorMessage += "✯Id \n";
             }
@@ -271,7 +294,7 @@ public class CrearProductoPanel extends JPanel {
     }
     private boolean checkLength (){
         if (tx_precio.getText().length()>7 && checkFieldsValueIncorrect()) {
-            errorMessage+="Los siguientes datos no pueden contener mas de 7 caracteres: \n";
+            errorMessage+="★Los siguientes datos no pueden contener mas de 7 caracteres: \n";
             errorMessage+="✯Id \n";
             return false;
         }else if(!checkFieldsValueIncorrect()){
@@ -281,14 +304,12 @@ public class CrearProductoPanel extends JPanel {
     }
     private boolean checkFinal(){
         if(idExistente && checkLength() && createMode && !tx_id.getText().isEmpty()) {
-            errorMessage="✯Id existente \n";
+            errorMessage="★Id existente \n";
             return false;
         }else if(idExistente && !checkLength() && createMode && !tx_id.getText().isEmpty()) {
-            errorMessage="✯Id existente \n";
+            errorMessage+="★Id existente \n";
             return false;
-        } else if (!idExistente && !checkLength() && createMode && !tx_id.getText().isEmpty()) {
-            return false;
-        } else if (!checkLength() && editMode) {
+        }else if (!checkLength()) {
             return false;
         }
         return true;

@@ -60,6 +60,7 @@ public class VerProductosPanel extends JPanel {
             libroPanel.addListeners(libroPanelController);
 
         }
+        booksListPanel.revalidate();
     }
     public DatePicker getDp_fechaDesde() {
         return dp_fechaDede;

@@ -29,7 +29,7 @@ public class LibroPanelController  implements ActionListener, MouseListener {
             editarProductoDialog.showWindow();
         } else if (option == 1) {
             int option2 = JOptionPane.showOptionDialog(libroPanel,"¿Realmente desea eliminar el producto?","Atencion",JOptionPane.DEFAULT_OPTION,JOptionPane.QUESTION_MESSAGE,new ImageIcon("deleteicon.jpg"),new Object[]{"Cancelar","Aceptar"},"Cancelar");
-            if(option2 == 0) {
+            if(option2 == 1) {
             boolean eliminado = XMLManager.deleteLibroById(libroPanel.getLibro().getId());
             if(eliminado){
                 JOptionPane.showMessageDialog(null, "El libro se elimino");
