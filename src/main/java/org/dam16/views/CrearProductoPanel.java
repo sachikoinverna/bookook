@@ -70,8 +70,8 @@ public class CrearProductoPanel extends JPanel {
         });
         tx_precio.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
-                if(Character.isLetter(e.getKeyChar()) || Character.isSpaceChar(e.getKeyChar())){
-                    tx_precio.setText(tx_precio.getText().substring(0,tx_precio.getText().length()-1));
+                if(Character.isLetter(e.getKeyChar()) || Character.isSpaceChar(e.getKeyChar() )){
+                    e.consume();
                 }
                 /*if(Character.isLetter(e.getKeyChar()) || (e.getKeyChar() != '\b')){
                     tx_precio.setText(tx_precio.getText().substring(0,tx_precio.getText().length()-1));
@@ -115,6 +115,7 @@ public class CrearProductoPanel extends JPanel {
     }
     private void loadComboGeneros(ArrayList<GeneroModel> generos) {
         DefaultComboBoxModel modelo = new DefaultComboBoxModel();
+        modelo.addElement("Seleccionar");
         for (GeneroModel genero : generos) {
             modelo.addElement(genero);
         }
@@ -210,9 +211,9 @@ public class CrearProductoPanel extends JPanel {
         }
         tx_id.setText("");
         tx_titulo.setText("");
-        tx_numeroejemplares.setText("");
+        tx_numeroejemplares.setText("1");
         tx_precio.setText(String.valueOf(0));
-        dp_fechapublicacion.setDate(null);
+        dp_fechapublicacion.setDate(LocalDate.now());
         cb_generos.setSelectedIndex(0);
         cb_generos.setEnabled(false);
         ck_stock.setSelected(false);
@@ -268,7 +269,7 @@ public class CrearProductoPanel extends JPanel {
     }
     private boolean checkFieldsEmpty(){
 
-        if(tx_id.getText().isEmpty() || tx_titulo.getText().isEmpty() || tx_precio.getText().isEmpty() || tx_numeroejemplares.getText().isEmpty() || getAutoresSelected().isEmpty() || dp_fechapublicacion.getText().isEmpty()) {
+        if(tx_id.getText().isEmpty() || tx_titulo.getText().isEmpty() || tx_precio.getText().isEmpty() || tx_numeroejemplares.getText().isEmpty() || cb_generos.getSelectedIndex()==0 || getAutoresSelected().isEmpty() || dp_fechapublicacion.getText().isEmpty()) {
             errorMessage="★Faltan los siguientes datos: \n";
             if (tx_id.getText().isEmpty()) {
                 errorMessage += "✯Id \n";
@@ -287,6 +288,9 @@ public class CrearProductoPanel extends JPanel {
             }
             if (dp_fechapublicacion.getDate()==null) {
                 errorMessage += "✯Fecha de publicacion \n";
+            }
+            if (cb_generos.getSelectedIndex()==0) {
+                errorMessage += "✯Genero \n";
             }
             return false;
         }
