@@ -220,6 +220,12 @@ public class CrearProductoPanel extends JPanel {
         imagePanel.setDefaultImage();
         tx_numeroejemplares.setText(String.valueOf(1));
         tx_id.setBorder(tx_titulo.getBorder());
+        bt_autoresnotselected.setEnabled(false);
+        bt_eliminarseleccion.setEnabled(false);
+        bt_autoreselected.setEnabled(false);
+        bt_seleccionartodos.setEnabled(false);
+        jl_autoresnotselected.setEnabled(false);
+        jl_autoreselected.setEnabled(false);
 
     }
     public JTextField getTx_titulo(){
@@ -370,5 +376,17 @@ public class CrearProductoPanel extends JPanel {
     }
     public JComboBox getCb_generos(){
         return cb_generos;
+    }
+    public JButton getbt_seleccionartodos(){
+        return bt_seleccionartodos;
+    }
+    public JButton getbt_autoresnotselected(){
+        return bt_autoresnotselected;
+    }
+    public JButton getbt_eliminarseleccion(){
+        return bt_eliminarseleccion;
+    }
+    public JButton getbt_autoreselected(){
+        return bt_autoreselected;
     }
 }

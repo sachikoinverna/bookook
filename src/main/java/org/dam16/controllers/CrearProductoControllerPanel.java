@@ -181,11 +181,25 @@ public class CrearProductoControllerPanel implements ActionListener, FocusListen
                 if (XMLManager.getLibroById(Integer.parseInt(tx_id.getText())) == null) {
                     crearProductoPanel.idExistente = false;
                     crearProductoPanel.getTx_id().setBorder(crearProductoPanel.getTx_titulo().getBorder());
-                    crearProductoPanel.getCb_generos().setEnabled(true);}
+                    crearProductoPanel.getCb_generos().setEnabled(true);
+                    crearProductoPanel.getCb_generos().setEnabled(true);
+                    crearProductoPanel.getbt_autoresnotselected().setEnabled(true);
+                    crearProductoPanel.getbt_eliminarseleccion().setEnabled(true);
+                    crearProductoPanel.getbt_autoreselected().setEnabled(true);
+                    crearProductoPanel.getbt_seleccionartodos().setEnabled(true);
+                    crearProductoPanel.getJlAutoreselected().setEnabled(true);
+                    crearProductoPanel.getJl_autoresnotselected().setEnabled(true);
+                }
                 else if (XMLManager.getLibroById(Integer.parseInt(tx_id.getText())) != null) {
                     crearProductoPanel.idExistente = true;
                     crearProductoPanel.setIdIncorrect();
                     crearProductoPanel.getCb_generos().setEnabled(false);
+                    crearProductoPanel.getbt_autoresnotselected().setEnabled(false);
+                    crearProductoPanel.getbt_eliminarseleccion().setEnabled(false);
+                    crearProductoPanel.getbt_autoreselected().setEnabled(false);
+                    crearProductoPanel.getbt_seleccionartodos().setEnabled(false);
+                    crearProductoPanel.getJlAutoreselected().setEnabled(false);
+                    crearProductoPanel.getJl_autoresnotselected().setEnabled(false);
                 }
                 }
             }
