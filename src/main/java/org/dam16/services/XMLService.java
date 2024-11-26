@@ -135,6 +135,57 @@ public class XMLService {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             // Crear un DocumentBuilder a partir de la fábrica
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            // Crear un nuevo documento XML vacío
+            Document newDocument = dBuilder.newDocument();
+
+            // Cargar el archivo base desde el recurso
+            InputStream inputStream = XMLService.class.getResourceAsStream("/xmlBase.xml");
+            if (inputStream != null) {
+                // Importar el contenido del XML base
+                Document baseDocument = dBuilder.parse(inputStream);
+                Element baseRoot = baseDocument.getDocumentElement(); // Obtener el nodo raíz del documento base
+
+                // Importar el nodo raíz del archivo base al nuevo documento
+                Node importedRoot = newDocument.importNode(baseRoot, true);
+                newDocument.appendChild(importedRoot);
+
+                System.out.println("Contenido XML importado correctamente desde: xmlBase.xml");
+            } else {
+                System.err.println("El archivo xmlBase.xml no se encontró en resources.");
+                return false; // Detener el proceso si no se encuentra el archivo base
+            }
+
+            // Crear un Transformer para escribir el documento XML en el archivo
+            Transformer transformer = TransformerFactory.newInstance().newTransformer();
+            // Opcional: Configurar salida formateada para legibilidad
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+
+            // Definir el archivo de salida donde se guardará el documento
+            Result output = new StreamResult(outputFile);
+            // Definir la fuente del documento que se va a transformar (el nuevo documento)
+            Source input = new DOMSource(newDocument);
+            // Realizar la transformación y guardar el documento en el archivo
+            transformer.transform(input, output);
+
+            return true; // Retornar true si se creó correctamente
+        } catch (Exception e) {
+            // Manejar excepciones, imprimir un mensaje de error
+            System.err.println("Error al crear XML: " + e.getMessage());
+            return false; // Retornar false si hubo un error
+        }
+    }
+    /*private static boolean createXML(File outputFile) {
+        try {
+            // Crear el directorio padre si no existe
+            File parentDir = outputFile.getParentFile();
+            if (!parentDir.exists()) {
+                parentDir.mkdirs(); // Crear todos los directorios intermedios necesarios
+            }
+
+            // Crear una instancia de DocumentBuilderFactory
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            // Crear un DocumentBuilder a partir de la fábrica
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             // Crear un nuevo documento XML
             Document newDocument = dBuilder.newDocument();
 
@@ -169,7 +220,7 @@ public class XMLService {
             System.err.println("Error al crear XML: " + e.getMessage());
             return false; // Retornar false si hubo un error
         }
-    }
+    }*/
 
 
     // Método que devuelve la ruta completa del archivo
