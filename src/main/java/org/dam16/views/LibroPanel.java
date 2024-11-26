@@ -34,6 +34,10 @@ public class LibroPanel extends JPanel {
         return libro;
     }
     private void setProductImage(String image) {
+        if(image.equals("default")){
+            setDefaultImage();
+            return;
+        }
         ImageIcon icon = new ImageIcon(image);
         Image imagenEscalada = icon.getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH);
         lb_imagen.setIcon(new ImageIcon(imagenEscalada));
@@ -49,6 +53,15 @@ public class LibroPanel extends JPanel {
         };
         tb_datos.setModel(tableModel);
         loadListAutores(libro.getAutor());
+    }
+    /*public void setDefaultImage(){
+        setSelectedImage("src/images/default.jpg");
+        setBackgroundImage(getSetSelectedImage());
+    }*/
+    public void setDefaultImage() {
+        Image imagenEscalada = new ImageIcon(getClass().getResource("/default.jpg"))
+                .getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH);
+        lb_imagen.setIcon(new ImageIcon(imagenEscalada));
     }
     private void loadListAutores(ArrayList<AutorModel> autores) {
         DefaultListModel modelo = new DefaultListModel();

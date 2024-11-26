@@ -24,7 +24,7 @@ public class ImagePanelcontroller implements ActionListener {
         }
     }
     private void handlerSetDefaultImage(){
-            imagePanel.setSelectedImage("src/images/default.jpg");
+            imagePanel.setSelectedImage("default");
             imagePanel.setBackgroundImage(imagePanel.getSetSelectedImage());
     }
     private void handlerDeleteImage(){
