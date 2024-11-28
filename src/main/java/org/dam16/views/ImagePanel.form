@@ -27,18 +27,9 @@
           <text value="Label"/>
         </properties>
       </component>
-      <component id="73b38" class="javax.swing.JButton" binding="bt_elegirImagen">
-        <constraints>
-          <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-          <forms defaultalign-horz="false"/>
-        </constraints>
-        <properties>
-          <text value="Elegir imagen"/>
-        </properties>
-      </component>
       <component id="8d5c8" class="javax.swing.JButton" binding="bt_eliminarImagen">
         <constraints>
-          <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="3" row-span="2" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
           <forms defaultalign-horz="false" defaultalign-vert="false"/>
         </constraints>
         <properties>

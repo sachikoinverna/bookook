@@ -330,6 +330,7 @@ public class CrearProductoPanel extends JPanel {
             int length = getAutoresSelected().size();
             for (int i = 0; i < length; i++) {
                 valuesA.add((AutorModel) getAutoresSelected().getElementAt(i));
+                jl_autoreselected.getSelectedValue();
             }
             return valuesA;
         }

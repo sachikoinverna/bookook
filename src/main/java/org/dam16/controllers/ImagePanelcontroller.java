@@ -5,10 +5,12 @@ import org.dam16.views.ImagePanel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 
-public class ImagePanelcontroller implements ActionListener {
+public class ImagePanelcontroller implements ActionListener, MouseListener {
     public static final String DELETE_IMAGE ="DELETE_IMAGE";
     public static final String SELECT_IMAGE ="SELECT_IMAGE";
     private final ImagePanel imagePanel;
@@ -21,11 +23,13 @@ public class ImagePanelcontroller implements ActionListener {
         if(imagen != null){
             imagePanel.setBackgroundImage(imagen);
             imagePanel.setSelectedImage(imagen);
+            imagePanel.setVisibleEliminar();
         }
     }
     private void handlerSetDefaultImage(){
             imagePanel.setSelectedImage("default");
             imagePanel.setBackgroundImage(imagePanel.getSetSelectedImage());
+            imagePanel.setNotVisibleEliminar();
     }
     private void handlerDeleteImage(){
         handlerSetDefaultImage();
@@ -36,10 +40,32 @@ public class ImagePanelcontroller implements ActionListener {
         switch (command){
             case DELETE_IMAGE:
                 handlerDeleteImage();
-                break;
-                case SELECT_IMAGE:
-                    handlerSelectImage();
-                    break;
         }
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        handlerSelectImage();
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 }
