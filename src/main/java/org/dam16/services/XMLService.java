@@ -139,7 +139,7 @@ public class XMLService {
             Document newDocument = dBuilder.newDocument();
 
             // Cargar el archivo base desde el recurso
-            InputStream inputStream = XMLService.class.getResourceAsStream("/xmlBase.xml");
+            InputStream inputStream = XMLService.class.getResourceAsStream("/xmlbase.xml");
             if (inputStream != null) {
                 // Importar el contenido del XML base
                 Document baseDocument = dBuilder.parse(inputStream);
@@ -149,7 +149,7 @@ public class XMLService {
                 Node importedRoot = newDocument.importNode(baseRoot, true);
                 newDocument.appendChild(importedRoot);
 
-                System.out.println("Contenido XML importado correctamente desde: xmlBase.xml");
+                System.out.println("Contenido XML importado correctamente desde: xmlbase.xml");
             } else {
                 System.err.println("El archivo xmlBase.xml no se encontró en resources.");
                 return false; // Detener el proceso si no se encuentra el archivo base
